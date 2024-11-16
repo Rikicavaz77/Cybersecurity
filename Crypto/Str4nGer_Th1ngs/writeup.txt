@@ -1,39 +1,50 @@
-Noto che il testo cifrato è diviso in due blocchi che sembrano essere stati cifrati seguendo due approcci differenti.
+I noticed that the encrypted text is divided into two blocks, which seem to have been manipulated using two different approaches.
 
-Inizio con il primo blocco:
-1. I caratteri utilizzati appartengono all'insieme {-. /}. I simboli - e . rimandano al codice Morse, mentre il simbolo / potrebbe essere uno spazio che separa diverse parole.
-2. Dopo aver decodificato ciascun carattere, e aver composto le parole separate da uno spazio, ho superato il primo step e ottenuto un messaggio che mi invita a continuare a decifrare.
+Starting with the first block:
+1) The characters used resemble Morse code.
+2) I create a mapping between each character and its corresponding Morse code value.
+3) After decoding each character, I obtain a message encouraging me to continue decrypting.
+4) I have completed the first step.
 
-Continuo con il secondo blocco:
-1. Controllo la lunghezza del testo.
-2. La lunghezza del testo è un multiplo di 4, quindi posso ipotizzare che si tratti di una codifica base64. Anche l'alfabeto utilizzato corrisponde.
-3. Dopo aver decodificato il testo, ottengo altri tre blocchi che sembrano essere stati cifrati seguendo tre approcci differenti.
+Proceeding with the second block:
+1) I check the length of the text.
+2) The length is a multiple of 4, so I can assume this is base64 encoding.
+3) The alphabet used also matches.
+4) After decoding the text, I obtain three more blocks, which appear to have been encrypted using three different approaches.
 
-Inizio con il primo sotto-blocco:
-1. Si tratta di un cifrario a sostituzione, pertanto la tecnica che posso applicare è la crittoanalisi.
-2. Calcolo la frequenza di ciascun carattere nel testo cifrato.
-3. I valori ottenuti possono essere confrontati con la frequenza dei caratteri nella lingua inglese. In tal modo, ogni volta che effettuo una sostituzione per risalire al messaggio in chiaro, posso controllare che la frequenza dei caratteri non sia troppo distante.
-4. Un'altra strategia che ho scelto di adottare prevede il calcolo della frequenza delle sequenze di caratteri nel testo cifrato, separate da uno spazio.
-5. Questo mi permette di individuare correlazioni con termini comuni nella lingua inglese. Ad esempio, una sequenza del tipo X'Y nel testo cifrato, potrebbe riferirsi a I'M nel testo in chiaro. Allo stesso modo, una sequenza del tipo XYZ che appare 15 volte, potrebbe riferirsi al termine THE.
-6. A ogni sostituzione, aggiorno quest'ultima lista per agevolare l'individuazione di termini noti e controllo quanti caratteri devo ancora sostituire.
-7. Il messaggio decodificato fa riferimento a delle coordinate. Pertanto, continuo a decifrare finché non trovo i valori di latitudine e longitudine.
+Starting with the first sub-block:
+1) This is a substitution cipher, so the technique I can apply is cryptanalysis.
+2) I calculate the frequency of each character in the encrypted text.
+3) The obtained values can be compared to the frequency of characters in the English language. 
+4) This way, every time I perform a substitution to recover the plaintext message, I can check that the frequency between the two characters is not too far apart.
+5) Another strategy I can apply is calculating the frequency of character sequences in the encrypted text.
+6) This allows me to identify correlations with common terms in the English language. 7) For example, a sequence like X'Y in the encrypted text could refer to I'M in the plaintext. Similarly, a sequence like XYZ that appears 15 times could correspond to the word THE.
+8) With each substitution, I update this list to aid in identifying known terms and keep track of how many characters still need to be substituted.
+9) The resulting text mentions some coordinates.
+10) Therefore, I continue decrypting until I find the values for latitude and longitude.
 
-Proseguo con il secondo sotto-blocco:
-1. Si tratta di una codifica URL. Ad esempio, la sequenza %20 codifica lo spazio.
-2. Decodifico il messaggio utilizzando una libreria apposita.
-3. Nel messaggio in chiaro, sono presenti le coordinate menzionate in precedenza: 45.41130017965508 e 11.887730729281115.
-4. Inoltre, appare una sequenza che sembra essere nel formato spritz{}.
-5. Trattandosi solamente di numeri, posso ipotizzare che sia stato utilizzato un cifrario a sostituzione, associando a ogni carattere un numero (a=1, b=2).
-6. Sostituisco ciascun carattere con il rispettivo valore numerico, compreso tra 1 e 26, lasciando invariati i caratteri speciali.
-7. Il risultato è il seguente:
+Moving on to the second sub-block:
+1) This is URL encoding. For instance, the sequence %20 encodes a space.
+2) I decode the message using an appropriate library.
+3) In the plaintext message, the coordinates previously mentioned appear. 
 
-spritz{the plank’s constant is the key}
+Coordinates: 45.41130017965508, 11.887730729281115.
 
-Termino con l'ultimo sotto-blocco:
-1. Si tratta di una codifica esadecimale.
-2. Divido in blocchi di due caratteri ed effettuo una conversione da esadecimale ad ascii.
-3. Nel messaggio decodificato noto il seguente indirizzo web rovesciato: A9lexwjAYZY=v?hctaw/moc.ebutuoy.www//:sptth.
-4. La mia ipotesi è che la stringa sia stata invertita.
-5. Dopo aver decodificato la stringa, ottengo un messaggio che conferma il completamento della sfida.
+1) Additionally, there is a sequence that seems to be in the format spritz{}.
+2) Since it only contains numbers, I can assume that a substitution cipher was used, mapping each character to a number (a=1, b=2, etc.).
+3) I replace each character with its corresponding numeric value, ranging from 1 to 26, leaving special characters unchanged.
+4) The result is as follows:
+
+Flag: spritz{the plank’s constant is the key}
+
+Finishing with the last sub-block:
+1) This is hexadecimal encoding.
+2) I split the string into blocks of two characters and convert from hexadecimal to ASCII.
+3) In the decoded message, I notice the following reversed web address:
+
+A9lexwjAYZY=vhctaw/moc.ebutuoy.www//:sptth.
+
+1) My hypothesis is that the string has been reversed.
+2) After reversing the string, I obtain a message confirming the completion of the challenge.
 
  
