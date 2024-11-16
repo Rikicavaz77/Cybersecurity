@@ -19,9 +19,9 @@ Starting with the first sub-block:
 4) This way, every time I perform a substitution to recover the plaintext message, I can check that the frequency between the two characters is not too far apart.
 5) Another strategy I can apply is calculating the frequency of character sequences in the encrypted text.
 6) This allows me to identify correlations with common terms in the English language. 7) For example, a sequence like X'Y in the encrypted text could refer to I'M in the plaintext. Similarly, a sequence like XYZ that appears 15 times could correspond to the word THE.
-8) With each substitution, I update this list to aid in identifying known terms and keep track of how many characters still need to be substituted.
-9) The resulting text mentions some coordinates.
-10) Therefore, I continue decrypting until I find the values for latitude and longitude.
+7) With each substitution, I update this list to aid in identifying known terms and keep track of how many characters still need to be substituted.
+8) The resulting text mentions some coordinates.
+9) Therefore, I continue decrypting until I find the values for latitude and longitude.
 
 Moving on to the second sub-block:
 1) This is URL encoding. For instance, the sequence %20 encodes a space.
