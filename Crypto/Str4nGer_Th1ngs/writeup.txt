@@ -1,0 +1,39 @@
+Noto che il testo cifrato è diviso in due blocchi che sembrano essere stati cifrati seguendo due approcci differenti.
+
+Inizio con il primo blocco:
+1. I caratteri utilizzati appartengono all'insieme {-. /}. I simboli - e . rimandano al codice Morse, mentre il simbolo / potrebbe essere uno spazio che separa diverse parole.
+2. Dopo aver decodificato ciascun carattere, e aver composto le parole separate da uno spazio, ho superato il primo step e ottenuto un messaggio che mi invita a continuare a decifrare.
+
+Continuo con il secondo blocco:
+1. Controllo la lunghezza del testo.
+2. La lunghezza del testo è un multiplo di 4, quindi posso ipotizzare che si tratti di una codifica base64. Anche l'alfabeto utilizzato corrisponde.
+3. Dopo aver decodificato il testo, ottengo altri tre blocchi che sembrano essere stati cifrati seguendo tre approcci differenti.
+
+Inizio con il primo sotto-blocco:
+1. Si tratta di un cifrario a sostituzione, pertanto la tecnica che posso applicare è la crittoanalisi.
+2. Calcolo la frequenza di ciascun carattere nel testo cifrato.
+3. I valori ottenuti possono essere confrontati con la frequenza dei caratteri nella lingua inglese. In tal modo, ogni volta che effettuo una sostituzione per risalire al messaggio in chiaro, posso controllare che la frequenza dei caratteri non sia troppo distante.
+4. Un'altra strategia che ho scelto di adottare prevede il calcolo della frequenza delle sequenze di caratteri nel testo cifrato, separate da uno spazio.
+5. Questo mi permette di individuare correlazioni con termini comuni nella lingua inglese. Ad esempio, una sequenza del tipo X'Y nel testo cifrato, potrebbe riferirsi a I'M nel testo in chiaro. Allo stesso modo, una sequenza del tipo XYZ che appare 15 volte, potrebbe riferirsi al termine THE.
+6. A ogni sostituzione, aggiorno quest'ultima lista per agevolare l'individuazione di termini noti e controllo quanti caratteri devo ancora sostituire.
+7. Il messaggio decodificato fa riferimento a delle coordinate. Pertanto, continuo a decifrare finché non trovo i valori di latitudine e longitudine.
+
+Proseguo con il secondo sotto-blocco:
+1. Si tratta di una codifica URL. Ad esempio, la sequenza %20 codifica lo spazio.
+2. Decodifico il messaggio utilizzando una libreria apposita.
+3. Nel messaggio in chiaro, sono presenti le coordinate menzionate in precedenza: 45.41130017965508 e 11.887730729281115.
+4. Inoltre, appare una sequenza che sembra essere nel formato spritz{}.
+5. Trattandosi solamente di numeri, posso ipotizzare che sia stato utilizzato un cifrario a sostituzione, associando a ogni carattere un numero (a=1, b=2).
+6. Sostituisco ciascun carattere con il rispettivo valore numerico, compreso tra 1 e 26, lasciando invariati i caratteri speciali.
+7. Il risultato è il seguente:
+
+spritz{the plank’s constant is the key}
+
+Termino con l'ultimo sotto-blocco:
+1. Si tratta di una codifica esadecimale.
+2. Divido in blocchi di due caratteri ed effettuo una conversione da esadecimale ad ascii.
+3. Nel messaggio decodificato noto il seguente indirizzo web rovesciato: A9lexwjAYZY=v?hctaw/moc.ebutuoy.www//:sptth.
+4. La mia ipotesi è che la stringa sia stata invertita.
+5. Dopo aver decodificato la stringa, ottengo un messaggio che conferma il completamento della sfida.
+
+ 
