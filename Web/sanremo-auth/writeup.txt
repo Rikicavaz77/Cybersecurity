@@ -1,16 +1,24 @@
-1. Ispezionando la pagina, noto che il titolo è "Sanremo injection", quindi ipotizzo si tratti di una sfida di SQL injection.
-2. Provo a inserire delle credenziali con l'obiettivo di generare un errore e individuare il DBMS di riferimento.
-3. Inserisco 1 come username e tre apici ''' come password.
-4. Dalla pagina di errore capisco che il DBMS utilizzato è sqlite3.
-5. In sqlite3, i commenti solitamente sono delimitati da -- o /* */.
-6. Inserisco due nuove credenziali.
-7. Come username scelgo la seguente stringa:
+1) Inspecting the page, I notice that the title is "Sanremo injection", so I hypothesize this challenge involves an SQL injection.
+2) I attempt to input some credentials to generate an error and identify the underlying DBMS.
+3) I enter 1 as the username and three single quotes (''') as the password.
+4) From the error page, I determine that the DBMS in use is sqlite3.
+5) In sqlite3, comments are usually delimited by -- or /* */.
+6) I proceed to input new credentials.
+7) For the username, I use the following string:
 
 admin' OR 1=1/*
 
-8. La mia ipotesi è che la query SQL sia nella forma SELECT * FROM users WHERE username='' AND password=''.
-9. Una volta inserita la mia stringa, l'applicazione controllerà se username è uguale ad admin o se 1=1 (condizione sempre vera). Il resto della query verrà ignorato in quando trattato come commento.
-10. Come password scelgo 1.
-11. Ottengo la flag.
+1) I hypothesize that the SQL query is structured as: SELECT * FROM users WHERE username='' AND password='';
+2) Once I inject my string, the application will check if the username is equal to admin or if 1=1 (a condition that is always true). The rest of the query will be ignored because it is treated as a comment.
+3) I set the password to 1.
+4) I retrieve the flag
 
 spritz{Bl4nc0_m4dness}
+
+Additional Steps:
+1) I also wrote two Python scripts to extract the correct username and password.
+2) The first script performs a brute-force attack to determine the length of the username. By knowing the length of the string and leveraging the SUBSTR function, I can reconstruct the username one character at a time.
+3) The second script performs a brute-force attack to guess the password associated with the previously found username.
+4) The script uses a character-by-character check based on ASCII values.
+5) The numerical comparison enables the implementation of a binary search algorithm, reducing computational complexity.
+6) With the retrieved username and password, I successfully log in.
