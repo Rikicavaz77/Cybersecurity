@@ -1,0 +1,50 @@
+I noticed that the encrypted text is divided into two blocks, which seem to have been manipulated using two different approaches.
+
+Starting with the first block:
+1) The characters used resemble Morse code.
+2) I create a mapping between each character and its corresponding Morse code value.
+3) After decoding each character, I obtain a message encouraging me to continue decrypting.
+4) I have completed the first step.
+
+Proceeding with the second block:
+1) I check the length of the text.
+2) The length is a multiple of 4, so I can assume this is base64 encoding.
+3) The alphabet used also matches.
+4) After decoding the text, I obtain three more blocks, which appear to have been encrypted using three different approaches.
+
+Starting with the first sub-block:
+1) This is a substitution cipher, so the technique I can apply is cryptanalysis.
+2) I calculate the frequency of each character in the encrypted text.
+3) The obtained values can be compared to the frequency of characters in the English language. 
+4) This way, every time I perform a substitution to recover the plaintext message, I can check that the frequency between the two characters is not too far apart.
+5) Another strategy I can apply is calculating the frequency of character sequences in the encrypted text.
+6) This allows me to identify correlations with common terms in the English language. 7) For example, a sequence like X'Y in the encrypted text could refer to I'M in the plaintext. Similarly, a sequence like XYZ that appears 15 times could correspond to the word THE.
+8) With each substitution, I update this list to aid in identifying known terms and keep track of how many characters still need to be substituted.
+9) The resulting text mentions some coordinates.
+10) Therefore, I continue decrypting until I find the values for latitude and longitude.
+
+Moving on to the second sub-block:
+1) This is URL encoding. For instance, the sequence %20 encodes a space.
+2) I decode the message using an appropriate library.
+3) In the plaintext message, the coordinates previously mentioned appear. 
+
+Coordinates: 45.41130017965508, 11.887730729281115.
+
+1) Additionally, there is a sequence that seems to be in the format spritz{}.
+2) Since it only contains numbers, I can assume that a substitution cipher was used, mapping each character to a number (a=1, b=2, etc.).
+3) I replace each character with its corresponding numeric value, ranging from 1 to 26, leaving special characters unchanged.
+4) The result is as follows:
+
+Flag: spritz{the plank’s constant is the key}
+
+Finishing with the last sub-block:
+1) This is hexadecimal encoding.
+2) I split the string into blocks of two characters and convert from hexadecimal to ASCII.
+3) In the decoded message, I notice the following reversed web address:
+
+A9lexwjAYZY=vhctaw/moc.ebutuoy.www//:sptth.
+
+1) My hypothesis is that the string has been reversed.
+2) After reversing the string, I obtain a message confirming the completion of the challenge.
+
+ 
