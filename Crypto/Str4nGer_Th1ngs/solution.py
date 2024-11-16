@@ -35,7 +35,7 @@ def substitution_solver(text):
 with open('cyphertext.txt', 'r') as file:
   cipher_text = file.read().strip()
   file.close()
-  print(f"Cipher text: \n{cipher_text}", end='\n\n')
+  print(f"Cipher text:\n{cipher_text}", end='\n\n')
 
   blocks = cipher_text.split("\n")
   first_block = blocks[0]

@@ -1,0 +1,17 @@
+From the assignment text, I can hypothesize that the message was encrypted using the XOR operation.
+
+1) Since the size of the message is considerable, I can assume that this is a repeating key XOR encoding.
+2) The presence of garbage stuff confirms my assumption.
+3) Analyzing the provided code, I notice that the key used consists solely of letters.
+4) The variable XOR_KEY is made up of two question marks, so it's possible that the key is the concatenation of two letters.
+
+I set the decryption algorithm: 
+1) I create a list of all possible 2-character keys, permuting both uppercase and lowercase letters.
+2) The key is shorter than the encrypted message, so I need to repeat it until it reaches the length of the message.
+3) I know that cipher = plain ^ key. Based on the properties of XOR, I can simply do plain = cipher ^ key.
+4) Therefore, I can perform the XOR operation between each character of the encrypted text and the corresponding character of the key.
+5) I repeat the previous steps for each possible key.
+6) If the word "spritz" appears in the decrypted message, I terminate the algorithm.
+7) With the key 'GJ', I obtain the flag.
+
+Flag: spritz{no_pain_no_30}
