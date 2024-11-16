@@ -1,0 +1,18 @@
+1) I notice that the string consists of only two characters: "Z" and "O".
+2) I replace "Z" with "0" and "O" with "1", in order to obtain a binary string.
+3) I convert the string from binary to ASCII.
+4) The resulting text ends with ==, which makes me think it is base64 encoding.
+5) I check the length of the text.
+6) The length is a multiple of 4, so I can assume this is base64 encoding.
+7) The alphabet used also matches.
+8) Analyzing the resulting text, I can assume that a substitution cipher was used.
+9) Therefore, the technique I can apply is cryptanalysis.
+10) I calculate the frequency of each character in the encrypted text.
+11) The obtained values can be compared to the frequency of characters in the English language. 
+12) This way, every time I perform a substitution to recover the plaintext message, I can check that the frequency between the two characters is not too far apart.
+13) Another strategy I can apply is calculating the frequency of character sequences in the encrypted text.
+14) This allows me to identify correlations with common terms in the English language. 15) For example, a sequence like X'Y in the encrypted text could refer to I'M in the plaintext. Similarly, a sequence like XYZ that appears 15 times could correspond to the word THE.
+16) With each substitution, I update this list to aid in identifying known terms and keep track of how many characters still need to be substituted.
+17) The resulting text contains the flag.
+
+Flag: spritz{shinra_tensei_everywhere}
