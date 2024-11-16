@@ -1,0 +1,16 @@
+1. Ispezionando la pagina, noto che il titolo è "Sanremo injection", quindi ipotizzo si tratti di una sfida di SQL injection.
+2. Provo a inserire delle credenziali con l'obiettivo di generare un errore e individuare il DBMS di riferimento.
+3. Inserisco 1 come username e tre apici ''' come password.
+4. Dalla pagina di errore capisco che il DBMS utilizzato è sqlite3.
+5. In sqlite3, i commenti solitamente sono delimitati da -- o /* */.
+6. Inserisco due nuove credenziali.
+7. Come username scelgo la seguente stringa:
+
+admin' OR 1=1/*
+
+8. La mia ipotesi è che la query SQL sia nella forma SELECT * FROM users WHERE username='' AND password=''.
+9. Una volta inserita la mia stringa, l'applicazione controllerà se username è uguale ad admin o se 1=1 (condizione sempre vera). Il resto della query verrà ignorato in quando trattato come commento.
+10. Come password scelgo 1.
+11. Ottengo la flag.
+
+spritz{Bl4nc0_m4dness}
