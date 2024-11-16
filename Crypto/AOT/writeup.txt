@@ -1,0 +1,15 @@
+1) I notice that the encrypted text contains some random-looking data, so it is likely encoded using a repeating key XOR.
+2) Analyzing the code, I observe that XOR is performed between each character of the plaintext and a variable x1.
+3) The variable x1 is a number that must be different from x2, x3, and the sum of x2 and x3.
+4) Additionally, the modulo of x1 with 731 must be equal to the modulo of x1 + x2 with 731.
+5) The goal is to identify the value of x1 used for the encoding.
+6) The values of x1 and x2 are not critical for decoding but are necessary to satisfy the constraints.
+7) I know that x1 > 0, since XORing a character with 0 returns the same character.
+8) Therefore, I set x2 = 0, ensuring it is always different from x1. With this, the conditions x1 != (x2 + x3) and f(x1) == f(x2 + x3) simplify to x1 != x3 and f(x1) == f(x3).
+9) By analyzing the characters in the encrypted text and making assumptions about the plaintext, I can infer that a number between 1 and 127 (ASCII table) was used for the XOR during encoding. This assumption reduces the search space for the brute-force attack.
+10) I set x3 = x1 + 731. This ensures that the modulo with 731 is the same for both.
+11) To optimize the search, I leverage the fact that part of the plaintext is known, as I know the format of the flag.
+12) If during an iteration the resulting text contains the string "spritzCTF{", then I have found the original message and can terminate the algorithm.
+13) With x1 equal to 70, I obtain the flag.
+
+Flag: spritzCTF{sasageyo}
