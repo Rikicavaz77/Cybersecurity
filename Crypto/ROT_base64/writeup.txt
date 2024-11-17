@@ -1,0 +1,9 @@
+I perform the encrypting operation in reverse.
+
+1) First, I implement an algorithm for the rotation cipher.
+2) The provided code includes two variables, ALPHABET and LEN, which give me information about the alphabet used during encryption and its length.
+3) To perform the shift, I need to find the index of each character within ALPHABET. I subtract the shift value from this index. The result is then taken modulo LEN to ensure the rotation wraps correctly.
+4) The resulting text is in Base64 format, as its length is a multiple of 4.
+5) I decode the text from Base64 and retrieve the flag.
+
+Flag: spritz{another_useless_encryption}
