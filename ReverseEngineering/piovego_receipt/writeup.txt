@@ -94,7 +94,6 @@ Third Input:
 1) The input number must be equal to 0x7b (123 in decimal).
 2) I input 123.
 
-
 Final Input:
 
 Main:
