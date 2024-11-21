@@ -1,3 +1,5 @@
+IDA
+
 1) By analyzing the content of the file, I notice it is an ELF file (Executable and Linkable Format), a standard file format for executables.
 2) I run the command ls -l ./PiovegoRecipe to view the file's permissions.
 3) Since the x (execute) permission is missing, I run the command chmod +x ./PiovegoRecipe to make the file executable as a program or script.
@@ -34,6 +36,99 @@ Final Input:
 54h ; 'T'
 
 7) I input the string "Swe4T" and obtain the flag.
+
+Flag: SPRITZ{D15gUsT!nG!!}
+
+
+
+Ghidra
+
+1) I execute the file using the command ./PiovegoRecipe to start the program.
+2) I use Ghidra to analyze and disassemble the executable file.
+
+First Input:
+
+Main:	
+  char local_48 [32];
+  __isoc99_scanf(&DAT_0040226e,local_48);
+  iVar1 = strcmp(local_48,"Patate-Prezzemolate");
+  if (iVar1 != 0) {
+    exit(0);
+  }
+  printf("\nGreat! Now let\'s see if you know how to prepare them :)");
+
+1) The variable local_48 holds the string entered as input.
+2) local_48 must be equal to "Patate-Prezzemolate".
+3) Therefore, I input "Patate-Prezzemolate".
+
+
+Second and Third Input:
+
+Main:
+  iVar1 = check_quantities();
+  if (iVar1 == 0) {
+    exit(0);
+  }
+  puts("Wow, it seems you have studied!! :)");
+
+check_quantities:
+  printf("\nHow many potatoes do you need for 100 people? ");
+  __isoc99_scanf(&DAT_004022a8,&local_18);
+  if (local_18 * 3 == 0xa8) {
+    printf("\nGood, and how much parsley? ");
+    __isoc99_scanf(&DAT_004022a8,&local_14);
+    if (local_14 == 0x7b) {
+	uVar1 = 1;
+    }
+  }
+  return uVar1;
+
+Second Input:
+
+1) The function check_quantities is called.
+2) The triple of the input number must be equal to 0xa8 (168 in decimal).
+3) I calculate 168 / 3 = 56 and input 56.
+
+Third Input:
+
+1) The input number must be equal to 0x7b (123 in decimal).
+2) I input 123.
+
+
+Final Input:
+
+Main:
+  char local_28;
+  char local_27;
+  char local_26;
+  char local_25;
+  char local_24;
+  iVar1 = check_secret();
+  if (iVar1 == 0) {
+    exit(0);
+  }
+  puts("Yes YeS YESS! Sweat and hard work are the ingredients for success!! Welcome on board!!!")
+
+check_secret:
+  printf("\nWhat is the super iper mega special and secret ingredient?? ");
+  __isoc99_scanf(&DAT_0040226e,&local_28);
+  sVar1 = strlen(&local_28);
+  if (sVar1 == 5) {
+    if (local_28 == 'S') {
+      if (local_26 == 'e') {
+        if (local_24 == 'T') {
+          if (local_27 == 'w') {
+            if (local_25 == '4') {
+              uVar2 = 1;
+            }
+  return uVar2;
+
+1) The function check_secret is called.
+2) The length of the string must be equal to 5.
+3) DAT_0040226e is a format string (%s), so scanf expects a string of characters as input.
+4) Since local_28 is a char variable, &local_28 means that scanf will read the entered string and store it starting from the address of local_28.
+5) Therefore, each variable, starting from local_28, will contain a character from the string.
+6) I input the string "Swe4T" and obtain the flag.
 
 Flag: SPRITZ{D15gUsT!nG!!}
 
