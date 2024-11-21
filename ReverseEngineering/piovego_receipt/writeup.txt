@@ -13,7 +13,7 @@ Second Input:
 2) The input number is doubled, and the result is added to the original value.
 3) The final result must be equal to 0A8h (168 in decimal).
 4) I need to input a number such that 168 = x * 2 + x.
-5) I calculate input 168 / 3 = 56 and input 56.
+5) I calculate 168 / 3 = 56 and input 56.
 
 Third Input:
 1) The input number must be equal to 7Bh (123 in decimal).
