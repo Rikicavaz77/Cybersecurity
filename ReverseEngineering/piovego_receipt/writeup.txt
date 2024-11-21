@@ -24,7 +24,7 @@ Final Input:
 2) The length of the string must be equal to 5.
 3) Character-by-character comparisons are performed.
 4) Strings are represented as arrays of characters.
-5) The indices to access are determined by the variables s, var_1F, var_1E, var_1D, and var_1C (the first character is at [rbp+s], the second at [rbp+var_1F], and so on).
+5) The indices to access are determined by the variables s, var_1F, var_1E, var_1D and var_1C (the first character is at [rbp+s], the second at [rbp+var_1F], and so on).
 6) Based on the comparisons made for each index, I derive the following string:
 
 53h ; 'S'
