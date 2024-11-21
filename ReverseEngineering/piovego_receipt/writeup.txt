@@ -1,0 +1,39 @@
+1) By analyzing the content of the file, I notice it is an ELF file (Executable and Linkable Format), a standard file format for executables.
+2) I run the command ls -l ./PiovegoRecipe to view the file's permissions.
+3) Since the x (execute) permission is missing, I run the command chmod +x ./PiovegoRecipe to make the file executable as a program or script.
+4) I execute the file using the command ./PiovegoRecipe to start the program.
+5) I use IDA (Interactive Disassembler) to convert the executable code into assembly language.
+
+First Input:
+1) A comparison is made between two strings: s2 ("Patate-Prezzemolate") and s1 (the input string).
+2) The two strings must be identical, so I input "Patate-Prezzemolate".
+
+Second Input:
+1) The function check_quantities is called.
+2) The input number is doubled, and the result is added to the original value.
+3) The final result must be equal to 0A8h (168 in decimal).
+4) I need to input a number such that 168 = x * 2 + x.
+5) I calculate input 168 / 3 = 56 and input 56.
+
+Third Input:
+1) The input number must be equal to 7Bh (123 in decimal).
+2) I input 123.
+
+Final Input:
+1) The function check_secret is called.
+2) The length of the string must be equal to 5.
+3) Character-by-character comparisons are performed.
+4) Strings are represented as arrays of characters.
+5) The indices to access are determined by the variables s, var_1F, var_1E, var_1D, and var_1C (the first character is at [rbp+s], the second at [rbp+var_1F], and so on).
+6) Based on the comparisons made for each index, I derive the following string:
+
+53h ; 'S'
+77h ; 'w'
+65h ; 'e'
+34h ; '4'
+54h ; 'T'
+
+7) I input the string "Swe4T" and obtain the flag.
+
+Flag: SPRITZ{D15gUsT!nG!!}
+

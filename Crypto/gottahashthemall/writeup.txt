@@ -1,0 +1,21 @@
+I need to decode 5 different hash values to obtain the flag without using reverse engineering or pwn strategies.
+
+1) By analyzing the content of the file, I notice it is an ELF file (Executable and Linkable Format), a standard file format for executables.
+2) I run the command ls -l ./challenge to view the file's permissions.
+3) Since the x (execute) permission is missing, I run the command chmod +x ./challenge to make the file executable as a program or script.
+4) I execute the file using the command ./challenge to start the program.
+5) The first hash value I get is: d5d0688cb78cd93cc4dc657715dc0f08.
+6) I use an online cracker to identify the hash algorithm and retrieve the plaintext.
+7) The algorithm used is MD5. The plaintext is "gotta".
+8) I input the string and get the next hash value: a9efc848b60e2a07d4fd0f0b06b890b1.
+9) The algorithm used is MD4. The plaintext is "catch".
+10) I input the string and get the next hash value: 27e90dfa57c358acfaf470860f6f72c9282ce995.
+11) The algorithm used is SHA1. The plaintext is "at".
+12) I input the string and get the next hash value: 6bab65a2bddec8af5dbc7f8b24ef22fc58acc385abcde4a6c4e34387d3b29261.
+13) The algorithm used is SHA256. The plaintext is "least".
+14) I input the string and get the next hash value: 1f4be9bd3c61e621ef43bb2e0a2d7836786f730e4e0e6aa546899bceab0571904dfc6efc94c1324b1a22ae446f0a995b533054b1dbd09d0cda03e0985786d59a.
+15) The algorithm used is SHA512. The plaintext is "this".
+16) I input the string and obtain the flag.
+
+Complete input: "gotta catch at least this"
+Flag: spritz{I_want3d_to_be_a_p0k3mon_tr4iner}
