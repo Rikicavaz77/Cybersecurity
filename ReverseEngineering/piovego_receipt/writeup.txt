@@ -61,7 +61,6 @@ Main:
 2) local_48 must be equal to "Patate-Prezzemolate".
 3) Therefore, I input "Patate-Prezzemolate".
 
-
 Second and Third Input:
 
 Main:
