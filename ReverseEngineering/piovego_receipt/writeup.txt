@@ -77,7 +77,7 @@ check_quantities:
     printf("\nGood, and how much parsley? ");
     __isoc99_scanf(&DAT_004022a8,&local_14);
     if (local_14 == 0x7b) {
-	uVar1 = 1;
+      uVar1 = 1;
     }
   }
   return uVar1;
