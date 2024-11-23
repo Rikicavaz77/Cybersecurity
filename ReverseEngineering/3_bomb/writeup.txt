@@ -165,7 +165,7 @@ Final Input:
 23) I need to choose a number such that the return value of the function is 2.
 24) I construct the tree up to the second level.
 
-	[36]
+        [36]
        /    \
     [8]     [50]
    /   \   /    \
