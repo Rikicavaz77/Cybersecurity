@@ -1,0 +1,203 @@
+1) I execute the file using the command ./bomb to start the program.
+2) I use Ghidra to analyze and disassemble the executable file.
+
+First Input:
+1) In the first phase, a comparison is made between 2 strings.
+2) The input string must be equal to "Border relations with Canada have never been better.".
+
+Second Input:
+1) In the second phase, 6 numeric inputs are read.
+2) The first number must be equal to 1.
+3) The subsequent numbers must each be double the previous one.
+4) The sequence to enter is "1 2 4 8 16 32".
+
+Third Input:
+1) In the third phase, 2 numeric inputs are read.
+2) A switch-case operation is performed to map between two values.
+3) To avoid the bomb, the first input must be a number between 0 and 7.
+4) I choose 0 as the first input.
+5) The value associated with 0 is 0xcf (207 in decimal).
+6) The second input must be equal to this value.
+7) The sequence to enter is "0 207".
+
+Fourth Input:
+1) In the fourth phase, 2 numeric inputs are read.
+2) The function fun4 is called with three parameters (first input, 0, 14).
+3) The first input must be equal to 14 / 2 = 7.
+4) The second input must be equal to 0.
+5) The sequence to enter is "7 0".
+
+Fifth Input:
+1) In the fifth phase, a 6-character string is read.
+2) For each character of the string, a substitution is made with another character stored in the following array:
+
+    local_18[lVar2] =
+         "maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?"
+         [*(byte *)(param_1 + lVar2) & 0xf];
+
+3) The index is calculated using a bitwise AND between the character of the input string and 0xf (15 in decimal).
+4) This reduces the range to 0-15.
+
+0 -> m
+1 -> a
+2 -> d
+3 -> u
+4 -> i
+5 -> e
+6 -> r
+7 -> s
+8 -> n
+9 -> f
+A -> o
+B -> t
+C -> v
+D -> b
+E -> y
+F -> l
+
+5) The resulting string must be equal to "flyers".
+6) The sequence of indices must be equal to "9FE567".
+7) I need to choose characters that yield this exact sequence of indices after the bitwise operations.
+8) I can use the ASCII table.
+9) I consider a range of 0-F, e.g., 30-3F.
+
+30 -> 0
+31 -> 1
+32 -> 2
+33 -> 3
+34 -> 4
+35 -> 5
+36 -> 6
+37 -> 7
+38 -> 8
+39 -> 9
+3A -> :
+3B -> ;
+3C -> <
+3D -> =
+3E -> >
+3F -> ?
+
+10) By choosing the character 9, I notice that its corresponding index in the ASCII table is 39.
+11) However, if I consider the range 0-15, the character is at position 9.
+12) By performing the AND between 39 (57 in decimal) and 0xf (15 in decimal), I get 9, which is the position of the character "f" in the hash table.
+13) The input string must be "9?>567".
+
+Sixth Input:
+1) In the sixth phase, 6 numeric inputs are read.
+2) The numbers must be <= 6.
+3) There cannot be any duplicate values.
+4) Each number is subtracted from 7.
+5) A loop is then executed to reorder the nodes of a list.
+6) At the end of this loop, local_58 contains pointers to the nodes of the linked list sorted according to the order defined by local_78 (an array containing the inputs).
+7) For example, if the first input is 1, the program iterates until it finds the node 7 - 1 = 6. The first element of local_58 will be a pointer to the sixth node of the list, and so on.
+8) The next loop updates the linked list pointers to create the connections between the nodes in the order defined by local_58.
+9) The values of the nodes must be in descending order.
+10) I need to choose 6 numeric inputs that ensure the descending order.
+11) First, I identify the value of the nodes.
+12) I execute the command gdb ./bomb.
+13) The address of the first node is "0x006032d0".
+14) I execute the command x /1dw 0x006032d0.
+
+0x6032d0 <node1>:       332
+
+15) With the command x /3xw 0x006032d0, I display the full structure of the node.
+
+0x6032d0 <node1>:       0x0000014c      0x00000001      0x006032e0
+
+16) I use a more compact form: p/x *(0x006032d0)@3.
+
+{0x14c, 0x1, 0x6032e0}
+
+17) The struct is in the form of value, ID and next_ptr.
+18) I use next_ptr to navigate the list until I find a null pointer.
+
+{0x14c, 0x1, 0x6032e0}
+{0xa8, 0x2, 0x6032f0}
+{0x39c, 0x3, 0x603300}
+{0x2b3, 0x4, 0x603310}
+{0x1dd, 0x5, 0x603320}
+{0x1bb, 0x6, 0x0}
+
+19) The nodes have the following values:
+
+1 -> 332
+2 -> 168
+3 -> 924
+4 -> 691
+5 -> 477
+6 -> 443
+
+20) The final list must be {node_3, node_4, node_5, node_6, node_1, node_2}.
+21) To make node_3 the head, the first input must be equal to 4.
+22) In this way, local_58[0] will point to node 7 - 4 = 3.
+23) The sequence to enter is "4 3 2 1 6 5".
+
+Final Input:
+1) To unlock the secret phase, I need to run the program again and add the string "DrEvil" in phases 3 or 4.
+2) I choose phase 4.
+3) I enter "7 0 DrEvil" as input.
+4) Once phase 6 is completed, I access the secret phase.
+5) A string containing a decimal number must be entered.
+6) The string is converted to a number.
+7) The number must be <= 1001.
+8) The function fun7 is called with two parameters (n1, input & 0xffffffff).
+9) Since the input is <= 1001, it remains unchanged after the bitwise operation.
+10) n1 is a pointer to a node.
+11) I execute the command x /1dw 0x006030f0.
+
+0x6030f0 <n1>:  36
+
+12) I notice that the structure of the node contains one extra pointer compared to the previous list.
+13) With the command p/x *(0x006030f0)@3, I get the first three elements of the node, and with x 0x006030f0+16, I get the second pointer (the two pointers have a size of 8 bytes).
+
+{0x24, 0x0, 0x603110, 0x00603130}
+
+14) The two pointers refer to subsequent nodes.
+15) The function fun7 is recursive.
+16) If the input is less than the value of the current node, the function is called again and the first parameter moves to the address of the node pointed to by the first pointer.
+17) If the input is greater than the value of the current node, the function is called again and the first parameter moves to the address of the node pointed to by the second pointer.
+18) This is a binary search within a binary tree.
+19) n1 represents the root of the tree.
+20) The two pointers refer to the left and right children.
+21) The input is the value to search in the tree.
+22) If the pointer to the current node is null, it means the value to search is not present in the tree.
+23) I need to choose a number such that the return value of the function is 2.
+24) I construct the tree up to the second level.
+
+	[36]
+       /    \
+    [8]     [50]
+   /   \   /    \
+ [6]  [22][45]  [207]
+
+25) The input must be:
+
+- Smaller than the first node
+- Greater than the second node
+- Equal to the third node
+
+26) I enter 22 and complete the challenge.
+
+----------------------------------------------------------
+
+This is the complete output:
+
+Welcome to my fiendish little bomb. You have 6 phases with
+which to blow yourself up. Have a nice day!
+Border relations with Canada have never been better.
+Phase 1 defused. How about the next one?
+1 2 4 8 16 32
+That's number 2.  Keep going!
+0 207
+Halfway there!
+7 0 DrEvil
+So you got that one.  Try this one.
+9?>567
+Good work!  On to the next...
+4 3 2 1 6 5
+Curses, you've found the secret phase!
+But finding it and solving it are quite different...
+22
+Wow! You've defused the secret stage!
+Congratulations! You've defused the bomb!
