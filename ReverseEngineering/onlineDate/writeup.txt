@@ -1,0 +1,60 @@
+1) The check_profile_info function is called.
+2) The return value must be equal to 1 so that the message contained in the file flag.txt is read and decrypted.
+3) This is the most interesting segment of the program.
+
+  char local_68 [56];
+  undefined8 local_30;
+  undefined4 local_28;
+  undefined8 local_24;
+  undefined8 local_1c;
+  undefined8 local_14;
+
+4) The program initializes 5 variables with the following values:
+
+  local_14 = 0x30353778656c6f52; -> 057xeloR
+  local_1c = 0x2169726172726546; -> !irarreF
+  local_24 = 0x216172696b616853; -> !arikahS
+  local_30 = 0x505f647261726547; -> P_drareG
+  local_28 = 0x65757169; -> euqi
+
+5) These variables are used to display the initial message:
+
+===================
+A recap of your data:
+Name: Gerard_Pique
+Favourite Singer: Shakira!
+Favourite Car: Ferrari!
+Favourite Watch: Rolex750
+===================
+
+6) The string "Gerard_Pique" has been stored across two separate variables.
+7) Thus, I can assume that local_30 and local_28 correspond to arrays of 8 and 4 characters, respectively:
+
+undefined8 -> char[8]
+undefined4 -> char[4]
+
+8) To ensure the return value is 1, all the conditions in the comparisons must be satisfied:
+
+  local_c = 1;
+  iVar1 = memcmp(&local_30,"Gerard_Pique",0xc);
+  if (iVar1 == 0) {
+    iVar1 = memcmp(&local_24,"Clara_C.",8);
+    if (iVar1 == 0) {
+      iVar1 = memcmp(&local_1c,"TwingoOo",8);
+      if ((iVar1 == 0) && (iVar1 = memcmp(&local_14,"CasioOo!",8), iVar1 == 0)) {
+        return local_c;
+      }
+      local
+
+9) I consider memcmp(&local_30, "Gerard_Pique", 0xc).
+10) This instruction compares the string "Gerard_Pique" with a memory block of size 0xc (12 in decimal) starting at the address of local_30.
+11) Since the variable local_68 is a 56-character array, providing an input string longer than 56 characters will cause the excess bytes to overflow into subsequent memory addresses.
+12) Based on the order in which the variables are declared, this buffer overflow can be exploited to overwrite these variables and ensure that the comparisons succeed.
+13) I choose 56 arbitrary characters (for simplicity, all As).
+14) I append the strings "Gerard_Pique", "Clara_C.", "TwingoOo" and "CasioOo!" to the input.
+15) Using the following string as input, I successfully obtain the flag:
+
+Input: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGerard_PiqueClara_C.TwingoOoCasioOo!"
+Flag: SPRITZ{CrAzy_DuD3}
+
+
