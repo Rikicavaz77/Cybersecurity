@@ -44,7 +44,6 @@ undefined4 -> char[4]
       if ((iVar1 == 0) && (iVar1 = memcmp(&local_14,"CasioOo!",8), iVar1 == 0)) {
         return local_c;
       }
-      local
 
 9) I consider memcmp(&local_30, "Gerard_Pique", 0xc).
 10) This instruction compares the string "Gerard_Pique" with a memory block of size 0xc (12 in decimal) starting at the address of local_30.
