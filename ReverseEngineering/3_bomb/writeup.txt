@@ -17,7 +17,7 @@ Third Input:
 3) To avoid the bomb, the first input must be a number between 0 and 7.
 4) I choose 0 as the first input.
 5) The value associated with 0 is 0xcf (207 in decimal).
-6) The second input must be equal to this value.
+6) The second input must be equal to 207.
 7) The sequence to enter is "0 207".
 
 Fourth Input:
