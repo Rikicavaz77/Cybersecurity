@@ -3,7 +3,7 @@
 3) The buff variable is an array of 16 characters.
 4) I use Ghidra and notice that the main function simply checks whether the password is correct or not, printing a corresponding message.
 5) The correct password is "thegeekstuff", but the flag is not printed.
-6) I notice that the flag is returned through the getFlag function, but it is not called.
+6) I notice that the flag is printed through the getFlag function, but this function is not called.
 7) I can exploit the vulnerability in the gets function, which does not check the length of the input data.
 8) I need to create a payload to take advantage of the buffer overflow and overwrite the return address of the function. 
 9) The goal is for the main function, instead of returning 0, to call the getFlag function.
