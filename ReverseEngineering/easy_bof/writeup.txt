@@ -1,0 +1,40 @@
+1) I need to enter a string as input.
+2) This string is stored in the variable buff.
+3) The buff variable is an array of 16 characters.
+4) I use Ghidra and notice that the main function simply checks whether the password is correct or not, printing a corresponding message.
+5) The correct password is "thegeekstuff", but the flag is not printed.
+6) I notice that the flag is returned through the getFlag function, but it is not called.
+7) I can exploit the vulnerability in the gets function, which does not check the length of the input data.
+8) I need to create a payload to take advantage of the buffer overflow and overwrite the return address of the function. 
+9) The goal is for the main function, instead of returning 0, to call the getFlag function.
+10) I launch the program using GDB (GNU Debugger).
+11) I set a breakpoint on the instruction address following the gets function.
+
+break *0x0040068
+
+12) I run the program and input any password.
+13) I use the commands info locals, info frame and info registers to analyze the state of the local variables, the stack frame and the registers.
+14) The registers rax (Return Accumulator Register), rdi (Register Destination Index), and rsp (Register Stack Pointer) all contain the same address (0x7fffffffdd20), which corresponds to the starting address of the local variable buff.
+
+x/s 0x7fffffffdd20
+0x7fffffffdd20: "thegeekstuff"
+
+15) I set another breakpoint on the return instruction address.
+16) I run the program and input any password.
+17) The rsp register contains the address 0x7fffffffdd48, which corresponds to the position on the stack where the return address is stored.
+18) I calculate the distance between the addresses 0x7fffffffdd48 and 0x7fffffffdd20:
+
+print 0x7fffffffdd48-0x7fffffffdd20
+$1 = 40
+
+19) This distance is confirmed by the following line in Ghidra:
+
+char[16]          Stack[-0x28]   buff
+
+20) 0x28 is 40 in decimal.
+21) I need to insert 40 bytes to fill the buffer and exceed its limit, overwriting adjacent memory up to the address where the return address is stored.
+22) I append the address of the getFlag function in a 64-bit format to overwrite the return address.
+23) I use a Python script to send the payload to the program.
+
+Flag: spritz{bof_for_fun_and_profit?}
+
