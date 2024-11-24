@@ -20,6 +20,9 @@ x/s 0x7fffffffdd20
 0x7fffffffdd20: "thegeekstuff"
 
 15) I set another breakpoint on the return instruction address.
+
+break *0x004006b1
+
 16) I run the program and input any password.
 17) The rsp register contains the address 0x7fffffffdd48, which corresponds to the position on the stack where the return address is stored.
 18) I calculate the distance between the addresses 0x7fffffffdd48 and 0x7fffffffdd20:
