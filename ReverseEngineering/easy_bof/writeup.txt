@@ -14,7 +14,7 @@ break *0x0040068
 
 12) I run the program and input any password.
 13) I use the commands info locals, info frame and info registers to analyze the state of the local variables, the stack frame and the registers.
-14) The registers rax (Return Accumulator Register), rdi (Register Destination Index), and rsp (Register Stack Pointer) all contain the same address (0x7fffffffdd20), which corresponds to the starting address of the local variable buff.
+14) The registers rax (Return Accumulator Register), rdi (Register Destination Index) and rsp (Register Stack Pointer) all contain the same address (0x7fffffffdd20), which corresponds to the starting address of the local variable buff.
 
 x/s 0x7fffffffdd20
 0x7fffffffdd20: "thegeekstuff"
