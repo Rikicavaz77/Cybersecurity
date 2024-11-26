@@ -1,0 +1,3 @@
+jz: jump if zero
+jzn: jmp if not zero
+jmp: salto non condizionato

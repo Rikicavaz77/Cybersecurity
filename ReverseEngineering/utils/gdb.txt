@@ -1,0 +1,14 @@
+info locals
+info registers
+info registers eax
+info functions
+info frame
+break *0x7fffffffdd20
+x 0x7fffffffdd20
+x/s 0x7fffffffdd20
+x 1/w 0x7fffffffdd20
+disassemble main
+run
+continue
+print "%s", $rax
+print "%c", $rax + 0
