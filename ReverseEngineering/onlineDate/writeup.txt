@@ -55,5 +55,3 @@ undefined4 -> char[4]
 
 Input: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGerard_PiqueClara_C.TwingoOoCasioOo!"
 Flag: SPRITZ{CrAzy_DuD3}
-
-

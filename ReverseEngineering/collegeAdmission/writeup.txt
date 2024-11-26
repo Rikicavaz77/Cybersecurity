@@ -1,0 +1,62 @@
+1) The program asks for some simple initial inputs.
+2) I press the Enter key and type the string "Anya Forger, Park Avenue 128".
+3) The next two steps require entering a numeric input, which is compared to another pseudo-random number.
+4) I launch gdb to debug the program, but when executing the run command, I receive a suspicious warning and the program terminates.
+5) The security_check function, called within the think function, appears to prevent the use of gdb.
+6) I modify the security_check function by replacing the conditional jump (jz) with an unconditional jump (jmp) and patch the program.
+7) Using gdb and analyzing the registers, I have several options to obtain the flag, such as exploiting the instruction that sets the seed:
+
+mov     edi, eax        ; seed
+call    _srand
+
+8) However, I decide to focus on the return values of the think function:
+
+call    think
+mov     [rbp+var_38], eax
+call    think
+mov     [rbp+var_34], eax
+
+9) First, I set a breakpoint at the following instruction:
+
+call    _strcmp
+break *0x0040182E
+
+10) The registers rax and rdi contain the address of the variable s1.
+
+rax            0x7fffffffdd00
+rdi            0x7fffffffdd00
+rbp            0x7fffffffdd30
+
+11) I execute the command x/s 0x7fffffffdd00 and get the value of the variable s1.
+
+0x7fffffffdd00: "Anya Forger, Park Avenue 128"
+
+12) I consider the following two instructions:
+
+s1 = byte ptr -30h
+[rbp+s1]
+
+13) The position of s1 relative to the base pointer (rbp) is -0x30 (48 bytes below rbp in the stack).
+14) rbp = 0x7fffffffdd30. Therefore, s1 = rbp - 0x30 = 0x7fffffffdd30 - 0x30 = 0x7fffffffdd00.
+15) 0x7fffffffdd00 is exactly the address of the variable s1.
+16) I can apply the same reasoning to the variables var_38 and var_34, which contain the return value of the think function.
+17) I set two breakpoints immediately after the calls to the think function.
+
+break *0x0040186D
+break *0x004018D7
+
+18) Once the first breakpoint is reached, I check the value of the variable var_38, whose position relative to the base pointer is -0x38.
+
+x /d 0x7fffffffdcf8
+0x7fffffffdcf8: 7
+
+19) I type 'continue' and enter the number 7.
+20) Once the second breakpoint is reached, I check the value of the variable var_34, whose position relative to the base pointer is -0x34.
+
+x /d 0x7fffffffdcfc
+0x7fffffffdcfc: 7
+
+21) I type 'continue' and enter the number 7.
+22) This process allows me to pass all steps without knowing the seed, thus maintaining the randomness in the number generation.
+
+Flag: SPRITZ{Ez_Adm1tT3d!!}
