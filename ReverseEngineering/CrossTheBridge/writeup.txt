@@ -1,0 +1,31 @@
+1) I modify the is_someone_cheating function by replacing the conditional jump (jnz) with an unconditional jump (jmp) and patch the program.
+2) I start GDB.
+3) I set a breakpoint at the beginning of the play_game_no_patch function and run the program.
+
+break play_game_no_patch
+
+4) Once the breakpoint is hit, I read the string stored in the rax or rdi register, which corresponds to the function parameter, i.e., the sequence of moves needed to win.
+5) I modify the string by adding a special character '\n' after each character.
+6) I write and run a GDB script to automate the previous two actions.
+
+source gdb_script.txt
+
+7) I input the formatted string and obtain the flag.
+
+Flag: SPRITZ{WhaT_A_fUn_gAme}
+
+------------------------------------------
+
+Alternative Solution
+
+1) If it is not necessary for the bridge generation to remain random on every run, I can make an additional modification before patching the program.
+2) In the generate_random_step function, I can modify one of the following two lines:
+
+mov     [rbp+var_B], 524Ch
+movzx   eax, byte ptr [rbp+rax+var_B]
+
+3) In the first case, I can replace 0x524c ("RL") with 0x4c4c ("LL") or 0x5252 ("RR"), so that the sequence remains the same despite the random offset.
+4) In the second case, I can simply replace byte ptr [rbp+rax+var_B] with 0x4c, removing the randomness.
+5) I run the program, always typing the same character, and I obtain the flag.
+
+Flag: SPRITZ{WhaT_A_fUn_gAme}

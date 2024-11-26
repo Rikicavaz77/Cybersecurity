@@ -1,0 +1,16 @@
+1) I notice that the flag is printed in the function give_the_man_a_guitar, but this function is not called in the main function.
+2) Then, I notice three interesting instructions:
+
+  __isoc99_scanf(&DAT_004024de, &temp);
+  __isoc99_scanf(&DAT_004024de, &pointer);
+  *pointer = temp;
+
+3) The first instruction reads an input and stores it in the variable temp.
+4) The second instruction reads an input and assigns it to the variable pointer.
+5) The variable pointer is a pointer to an int, so using the special character '&' modifies the memory address it points to.
+6) The third instruction accesses the memory area pointed to by the pointer variable and saves the contents of the temp variable there.
+7) I can use this sequence of instructions to override an entry in the GOT (Global Offset Table) in order to gain control of the program's control flow and call one function instead of another.
+8) I can replace the exit() function.
+9) I write a Python script to overwrite the GOT entry reserved for the exit function, replacing the address of the exit function with the address of the give_the_man_a_guitar function.
+
+Flag: SPRITZ{St4nDndTTM4L3}

@@ -1,0 +1,9 @@
+set $str = $rax
+set $i = 0
+
+while *((char *)($str + $i)) != 0
+    printf "%c\n", *((char *)($str + $i))
+    set $i = $i + 1
+end
+
+printf "\n"
