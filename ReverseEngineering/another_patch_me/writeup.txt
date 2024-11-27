@@ -1,0 +1,40 @@
+1) The string entered as input is compared twice with the character 'Y'.
+2) In the first case, if the two characters are equal, the execution continues normally.
+3) In the second case, however, if the two characters are equal, the program terminates.
+4) Therefore, I need to modify jnz to jz and patch the program.
+5) Next to the character 'Y', I need to add a string in order to pass the subsequent check.
+6) Since I don't know the string used for the comparison, I set a breakpoint on the strcmp instruction.
+
+disassemble main
+break *0x0000555555400bf0
+
+7) I check the contents of the rsi register.
+
+x /s $rsi
+0x7fffffffdc90: "Poor student that needs to take this exam"
+
+8) I input the string "YPoor student that needs to take this exam".
+9) The next step requires entering a numeric input, which is compared to another pseudo-random number.
+10) I set a breakpoint on the instruction following the call to the get_rand function.
+
+break *0x0000555555400c25
+
+11) The rax register contains the number returned by the get_rand function.
+12) I type the number, but I notice that the program enters a loop.
+
+mov     [rbp+var_AC], 0
+cmp     [rbp+var_AC], 95h
+jle     short loc_C8C
+
+13) A comparison is made between var_AC and 0x95 (149 in decimal), and the program enters a loop if var_AC is less than or equal to 0x95 (which is always true!).
+14) I change the value of var_AC from 0 to 0x96 (150 in decimal) and patch the program.
+15) I repeat the previous steps, but the program enters another loop.
+
+mov     [rbp+var_AC], 0
+cmp     [rbp+var_AC], 95h
+jle     short loc_CD2
+
+16) I change the value of var_AC from 0 to 0x96 (150 in decimal) and patch the program again.
+17) I repeat the previous steps and successfully obtain the flag.
+
+Flag: spritz{CPP_is_great_CPP_is_life}

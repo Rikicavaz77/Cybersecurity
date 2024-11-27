@@ -1,3 +1,11 @@
 jz: jump if zero
 jzn: jmp if not zero
 jmp: salto non condizionato
+jle: jump if less or equal (considera il segno)
+jbe: jump if below or equal (non considera il segno)
+jge: jump if greater of equal (considera il segno)
+jbe: jump if above or equal (non considera il segno)
+jg: jump if greater
+jl: jump if less
+je: jump if equal
+The GOT is a table that stores the addresses of dynamically loaded functions. By overwriting an entry in the GOT, we can change the execution flow of the program.

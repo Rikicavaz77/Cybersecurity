@@ -1,0 +1,17 @@
+1) The program asks for two inputs:
+
+unsigned int address;
+unsigned int value;
+scanf("%x", &address);
+scanf("%x", &value);
+
+2) The two inputs must be in hexadecimal format.
+3) The flag is printed in the win function, but this function is never called in the main.
+4) I can overwrite an entry in the GOT (Global Offset Table) to redirect execution to the win function instead of the exit function.
+5) The first input must be the address of the GOT entry to overwrite.
+6) The second input must be the address of the win function.
+7) The address variable will be cast into a pointer to an unsigned integer, and through dereferencing, the GOT entry will be overwritten, replacing the address of the exit function with the address of the win function.
+8) I write a Python script to overwrite the GOT entry and obtain the flag.
+
+Flag: spritz{GOT_not_Goat!}
+

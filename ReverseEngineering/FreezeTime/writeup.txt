@@ -1,0 +1,23 @@
+1) The program requires pressing the Enter key twice to steal and destroy the Diamond containing a secret (probably the flag).
+2) Once the message is retrieved, the program pauses for a moment and then terminates without printing the flag.
+3) The flag must be captured before the program ends and the message is lost.
+
+call    extract_message
+mov     [rbp+var_8], rax
+
+4) I launch gdb to debug the program, but when executing the run command, I receive a suspicious warning and the program terminates.
+5) The is_policeman_here function seems to block the use of gdb.
+6) I modify the is_policeman_here function by replacing the conditional jump (jz) with an unconditional jump (jmp) and patch the program.
+7) I set a breakpoint at the instruction right after the call to the extract_message function:
+
+break *0x0000000000402121
+
+8) I check the contents of the rax register:
+
+x /s $rax
+0x408410 <msg>: "SPRITZ{Za_WaRuDo_348178}"
+
+9) I type 'continue' to finish running the program.
+
+Flag: SPRITZ{Za_WaRuDo_348178}
+
