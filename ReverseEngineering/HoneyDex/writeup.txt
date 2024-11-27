@@ -1,0 +1,29 @@
+1) The program functions as a sort of database.
+2) By entering a number from 1 to 151, the program displays information about the Pokémon associated with that number.
+3) I analyze the readable character sequences (ASCII or Unicode text strings) contained within the binary file.
+
+strings ./honeydex
+
+4) I notice that there are some strings starting with "TIP" that provide hints about the challenge.
+5) I filter the search further:
+
+strings ./honeydex | grep "TIP"
+Finding SPRITZ{FLAG} with strings would be too easy, but you are very close! Read all the TIPs!
+TIP: TAs told you the FLAG FORMAT... but maybe it's not displayed in that way!
+TIP: Really need a MIRROR?
+TIP: If aperol + prosecco + water is wrong...
+TIP: ... why not try water + prosecco + aperol?
+
+6) The highlighted strings suggest that the flag has been reversed.
+7) I attempt to filter the search using the keyword "ZTIRPS":
+
+strings ./honeydex | grep "ZTIRPS"
+
+8) I obtain the reversed flag:
+
+}803998_ekoPWOOOOOLS_ereh_yllaniF{ZTIRPS
+
+9) I write a Python script to execute the previous steps and reverse the flag.
+
+Flag: SPRITZ{Finally_here_SLOOOOOWPoke_899308}
+
