@@ -21,9 +21,8 @@ mov     [rbp+var_34], eax
 call    _strcmp
 break *0x0040182E
 
-10) The registers rax and rdi contain the address of the variable s1.
+10) The register rdi contain the address of the variable s1.
 
-rax            0x7fffffffdd00
 rdi            0x7fffffffdd00
 rbp            0x7fffffffdd30
 
