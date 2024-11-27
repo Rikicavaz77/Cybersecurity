@@ -20,7 +20,7 @@ x /s $rsi
 break *0x0000555555400c25
 
 11) The rax register contains the number returned by the get_rand function.
-12) I type the number, but I notice that the program enters a loop.
+12) I type that number, but I notice that the program enters a loop.
 
 mov     [rbp+var_AC], 0
 cmp     [rbp+var_AC], 95h
