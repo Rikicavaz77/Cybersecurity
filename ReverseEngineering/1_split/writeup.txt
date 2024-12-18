@@ -7,7 +7,7 @@ I need to perform a ROP Chain attack to call system("/bin/cat flag.txt").
 5) Next, I type the command pattern_search in GDB to locate the offset and find that it is 40.
 6) I begin constructing the payload by adding 40 'A' characters as padding.
 7) To overwrite the return address, I build a ROP gadget chain.
-8) I write a Python script to generate the ROP chain dynamically.
+8) I write a Python script to generate the ROP chain.
 9) I include padding to align the stack (if necessary):
 
 if padding:
