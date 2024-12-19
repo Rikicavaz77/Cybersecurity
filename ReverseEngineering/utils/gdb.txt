@@ -12,3 +12,4 @@ run
 continue
 print "%s", $rax
 print "%c", $rax + 0
+x /32b $rbp-0x20
