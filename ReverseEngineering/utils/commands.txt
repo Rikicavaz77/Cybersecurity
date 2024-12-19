@@ -1,1 +1,2 @@
 objdump -d ./hello_world
+ltrace ./split
