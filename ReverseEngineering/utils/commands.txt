@@ -1,2 +1,13 @@
 objdump -d ./hello_world
 ltrace ./split
+
+# Visualizzare possibili gadget ROP
+ROPgadget --binary ./split | grep "ret"
+ropper --file ./split
+ropper --file ./split --search "ret"
+
+# Visualizzare tutte le sezioni di un binario e i relativi permessi
+readelf -S ./write4
+
+# Visualizzare un elenco delle funzioni e variabili simboliche nel binario
+readelf -s ./write4
