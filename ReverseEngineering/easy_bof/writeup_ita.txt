@@ -1,0 +1,41 @@
+Devo inserire una stringa come input.
+Questa stringa viene memorizzata nella variabile buff.
+La variabile buff è un array di 16 caratteri.
+Utilizzo Ghidra e noto che la funzione main controlla semplicemente se la password è corretta o meno, stampando un messaggio corrispondente.
+La password corretta è "thegeekstuff", ma la flag non viene stampata.
+Noto che la flag viene stampata tramite la funzione getFlag, ma questa funzione non viene chiamata.
+Posso sfruttare la vulnerabilità nella funzione gets, che non controlla la lunghezza dei dati in input.
+Devo creare un payload per sfruttare il buffer overflow e sovrascrivere l'indirizzo di ritorno della funzione.
+L'obiettivo è fare in modo che la funzione main, invece di restituire 0, chiami la funzione getFlag.
+Eseguo il programma utilizzando GDB (GNU Debugger).
+Imposto un breakpoint sull'istruzione successiva alla funzione gets.
+kotlin
+Copia codice
+break *0x0040068  
+Eseguo il programma e inserisco una password qualsiasi.
+Utilizzo i comandi info locals, info frame e info registers per analizzare lo stato delle variabili locali, del frame dello stack e dei registri.
+I registri rax (Return Accumulator Register), rdi (Register Destination Index) e rsp (Register Stack Pointer) contengono tutti lo stesso indirizzo (0x7fffffffdd20), che corrisponde all'indirizzo iniziale della variabile locale buff.
+bash
+Copia codice
+x/s 0x7fffffffdd20  
+0x7fffffffdd20: "thegeekstuff"  
+Imposto un altro breakpoint sull'indirizzo dell'istruzione di ritorno.
+kotlin
+Copia codice
+break *0x004006b1  
+Eseguo il programma e inserisco una password qualsiasi.
+Il registro rsp contiene l'indirizzo 0x7fffffffdd48, che corrisponde alla posizione nello stack in cui è memorizzato l'indirizzo di ritorno.
+Calcolo la distanza tra gli indirizzi 0x7fffffffdd48 e 0x7fffffffdd20:
+bash
+Copia codice
+print 0x7fffffffdd48-0x7fffffffdd20  
+$1 = 40  
+Questa distanza è confermata dalla seguente linea in Ghidra:
+scss
+Copia codice
+char[16]          Stack[-0x28]   buff  
+0x28 corrisponde a 40 in decimale.
+Devo inserire 40 byte per riempire il buffer e superarne il limite, sovrascrivendo la memoria adiacente fino all'indirizzo in cui è memorizzato l'indirizzo di ritorno.
+Aggiungo l'indirizzo della funzione getFlag in formato a 64 bit per sovrascrivere l'indirizzo di ritorno.
+Utilizzo uno script Python per inviare il payload al programma.
+Flag: spritz{bof_for_fun_and_profit?}

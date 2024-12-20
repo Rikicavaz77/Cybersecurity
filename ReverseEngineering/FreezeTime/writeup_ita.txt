@@ -1,0 +1,30 @@
+Il programma richiede di premere il tasto Invio due volte per rubare e distruggere il Diamante contenente un segreto (probabilmente la flag).
+
+Una volta recuperato il messaggio, il programma si blocca per un momento e poi termina senza stampare la flag.
+
+La flag deve essere catturata prima che il programma termini e il messaggio venga perso.
+
+css
+Copia codice
+call    extract_message  
+mov     [rbp+var_8], rax  
+Avvio GDB per eseguire il debug del programma, ma quando eseguo il comando run, ricevo un avviso sospetto e il programma si interrompe.
+
+La funzione is_policeman_here sembra bloccare l'uso di GDB.
+
+Modifico la funzione is_policeman_here sostituendo il salto condizionale (jz) con un salto incondizionato (jmp) e patcho il programma.
+
+Imposto un breakpoint sull'istruzione immediatamente successiva alla chiamata alla funzione extract_message:
+
+kotlin
+Copia codice
+break *0x0000000000402121  
+Controllo il contenuto del registro rax:
+
+bash
+Copia codice
+x /s $rax  
+0x408410 <msg>: "SPRITZ{Za_WaRuDo_348178}"  
+Scrivo continue per terminare l'esecuzione del programma.
+
+Flag: SPRITZ{Za_WaRuDo_348178}

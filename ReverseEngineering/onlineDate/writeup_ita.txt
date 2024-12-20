@@ -1,0 +1,43 @@
+La funzione check_profile_info viene chiamata.
+Il valore restituito deve essere uguale a 1 affinché il messaggio contenuto nel file flag.txt venga letto e decrittato.
+Questo è il segmento più interessante del programma.
+c
+Copia codice
+char local_68[56];
+undefined8 local_30;
+undefined4 local_28;
+undefined8 local_24;
+undefined8 local_1c;
+undefined8 local_14;
+Il programma inizializza 5 variabili con i seguenti valori:
+local_14 = 0x30353778656c6f52; -> 057xeloR
+local_1c = 0x2169726172726546; -> !irarreF
+local_24 = 0x216172696b616853; -> !arikahS
+local_30 = 0x505f647261726547; -> P_drareG
+local_28 = 0x65757169; -> euqi
+Queste variabili vengono utilizzate per visualizzare il messaggio iniziale:
+=================== Riepilogo dei tuoi dati: Nome: Gerard_Pique Cantante preferito: Shakira! Auto preferita: Ferrari! Orologio preferito: Rolex750
+La stringa "Gerard_Pique" è stata memorizzata in due variabili separate.
+Quindi, posso assumere che local_30 e local_28 corrispondano a array di 8 e 4 caratteri, rispettivamente:
+undefined8 -> char[8]
+undefined4 -> char[4]
+Per garantire che il valore restituito sia 1, tutte le condizioni nelle comparazioni devono essere soddisfatte:
+c
+Copia codice
+local_c = 1;
+iVar1 = memcmp(&local_30, "Gerard_Pique", 0xc);
+if (iVar1 == 0) {
+  iVar1 = memcmp(&local_24, "Clara_C.", 8);
+  if (iVar1 == 0) {
+    iVar1 = memcmp(&local_1c, "TwingoOo", 8);
+    if ((iVar1 == 0) && (iVar1 = memcmp(&local_14, "CasioOo!", 8), iVar1 == 0)) {
+      return local_c;
+    }
+Considero memcmp(&local_30, "Gerard_Pique", 0xc).
+Questa istruzione confronta la stringa "Gerard_Pique" con un blocco di memoria di dimensione 0xc (12 in decimale) che inizia all'indirizzo di local_30.
+Poiché la variabile local_68 è un array di 56 caratteri, fornire una stringa di input più lunga di 56 caratteri farà sì che i byte in eccesso trabocchino negli indirizzi di memoria successivi.
+In base all'ordine in cui le variabili sono dichiarate, questo overflow di buffer può essere sfruttato per sovrascrivere queste variabili e garantire che le comparazioni abbiano successo.
+Scegliamo 56 caratteri arbitrari (per semplicità, tutte A).
+Aggiungo le stringhe "Gerard_Pique", "Clara_C.", "TwingoOo" e "CasioOo!" all'input.
+Usando la seguente stringa come input, ottengo con successo il flag:
+Input: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGerard_PiqueClara_C.TwingoOoCasioOo!" Flag: SPRITZ{CrAzy_DuD3}

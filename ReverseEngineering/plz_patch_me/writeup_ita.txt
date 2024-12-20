@@ -1,0 +1,44 @@
+1) Dopo aver inserito un carattere diverso da 'n', il programma richiede l'inserimento di una stringa.
+2) Sostituisco il salto condizionato jz con un salto incondizionato jmp, in modo tale che il programma accetti qualsiasi input.
+3) Successivamente, viene richiesto l'inserimento di un numero.
+4) Dato che il numero viene generato randomicamente, anche in questo caso sostituisco il salto condizionato jz con un salto incondizionato jmp, in modo tale che il programma accetti qualsiasi input.
+5) Viene poi eseguito un ciclo che stampa una serie di messaggi a schermo:
+
+  for (local_c4 = 0; local_c4 < 0x96; local_c4 = local_c4 + 1) {
+    puts("Nice ");
+    sleep(1);
+  }
+
+6) Il ciclo attende 150 secondi senza eseguire operazioni utili all'ottenimento della flag.
+7) Pertanto, sostituisco il salto condizionato jle con nop (codice 90).
+8) Lo stesso vale per il ciclo seguente:
+
+  for (local_c4 = 0; local_c4 < 0x96; local_c4 = local_c4 + 1) {
+    puts("...");
+    sleep(1);
+  }
+
+9) Sostituisco il salto condizionato jle con nop (codice 90).
+10) Eseguo il programma e ottengo la flag.
+
+ __    __     _                            _          _____ _              ___  __  __ _
+/ / /\ \ \___| | ___ ___  _ __ ___   ___  | |_ ___   /__   \ |__   ___    /___\/ _|/ _(_) ___ ___
+\ \/  \/ / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \    / / \/ '_ \ / _\  //  // |_| |_| |/ __/ _ \
+ \  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) |  / /  | | | |  __/ / \_//|  _|  _| | (_|  __/
+  \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \/   |_| |_|\___| \___/ |_| |_| |_|\___\___|
+
+We are ready to start your interview to be a regional manager, are you ready? [Y]/n
+Y
+Can you tell me your name, surname, and your current position?
+
+Ok great, now tell me your hobby bewteen these choices.
+0 - Eat
+1 - Badminton
+2 - Battlestar galactica
+3 - Annoying people
+4 - Play Lol
+2
+Perfect hobby for a regional manager!
+
+Should I get you...
+spritz{th4ts_wh4t_sh3_s41d}

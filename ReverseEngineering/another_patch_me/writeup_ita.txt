@@ -1,0 +1,49 @@
+La stringa inserita come input viene confrontata due volte con il carattere 'Y'.
+
+Nel primo caso, se i due caratteri sono uguali, l'esecuzione continua normalmente.
+
+Nel secondo caso, invece, se i due caratteri sono uguali, il programma termina.
+
+Pertanto, devo modificare l'istruzione jnz in jz e applicare la patch al programma.
+
+Accanto al carattere 'Y', devo aggiungere una stringa per superare il controllo successivo.
+
+Poiché non conosco la stringa utilizzata per il confronto, imposto un breakpoint sull'istruzione strcmp.
+
+kotlin
+Copia codice
+disassemble main  
+break *0x0000555555400bf0  
+Controllo il contenuto del registro rsi.
+
+bash
+Copia codice
+x /s $rsi  
+0x7fffffffdc90: "Poor student that needs to take this exam"  
+Inserisco la stringa "YPoor student that needs to take this exam".
+
+Il passaggio successivo richiede l'inserimento di un input numerico, che viene confrontato con un altro numero pseudo-casuale.
+
+Imposto un breakpoint sull'istruzione successiva alla chiamata della funzione get_rand.
+
+kotlin
+Copia codice
+break *0x0000555555400c25  
+Il registro rax contiene il numero restituito dalla funzione get_rand.
+Inserisco quel numero, ma noto che il programma entra in un ciclo.
+asm
+Copia codice
+mov     [rbp+var_AC], 0  
+cmp     [rbp+var_AC], 95h  
+jle     short loc_C8C  
+Viene effettuato un confronto tra var_AC e 0x95 (149 in decimale), e il programma entra in un ciclo se var_AC è minore o uguale a 0x95 (che è sempre vero!).
+Cambio il valore di var_AC da 0 a 0x96 (150 in decimale) e applico la patch al programma.
+Ripeto i passaggi precedenti, ma il programma entra in un altro ciclo.
+asm
+Copia codice
+mov     [rbp+var_AC], 0  
+cmp     [rbp+var_AC], 95h  
+jle     short loc_CD2  
+Cambio il valore di var_AC da 0 a 0x96 (150 in decimale) e applico nuovamente la patch al programma.
+Ripeto i passaggi precedenti e ottengo con successo la flag.
+Flag: spritz{CPP_is_great_CPP_is_life}

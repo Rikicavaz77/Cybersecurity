@@ -1,0 +1,15 @@
+Il programma richiede due input:
+c
+Copia codice
+unsigned int address;  
+unsigned int value;  
+scanf("%x", &address);  
+scanf("%x", &value);  
+I due input devono essere in formato esadecimale.
+La flag viene stampata nella funzione win, ma questa funzione non viene mai chiamata nel main.
+Posso sovrascrivere un'entry nella GOT (Global Offset Table) per reindirizzare l'esecuzione alla funzione win invece della funzione exit.
+Il primo input deve essere l'indirizzo dell'entry GOT da sovrascrivere.
+Il secondo input deve essere l'indirizzo della funzione win.
+La variabile address verrà convertita in un puntatore a un intero senza segno e, attraverso la dereferenziazione, l'entry della GOT verrà sovrascritta, sostituendo l'indirizzo della funzione exit con l'indirizzo della funzione win.
+Scrivo uno script Python per sovrascrivere l'entry della GOT e ottenere la flag.
+Flag: spritz{GOT_not_Goat!}

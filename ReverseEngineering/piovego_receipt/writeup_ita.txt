@@ -1,0 +1,136 @@
+IDA
+Analizzando il contenuto del file, noto che si tratta di un file ELF (Executable and Linkable Format), un formato standard per i file eseguibili.
+Eseguo il comando ls -l ./PiovegoRecipe per visualizzare i permessi del file.
+Poiché il permesso x (esecuzione) è mancante, eseguo il comando chmod +x ./PiovegoRecipe per rendere il file eseguibile come programma o script.
+Eseguo il file usando il comando ./PiovegoRecipe per avviare il programma.
+Uso IDA (Interactive Disassembler) per convertire il codice eseguibile in linguaggio assembly.
+Primo input:
+
+Viene eseguito un confronto tra due stringhe: s2 ("Patate-Prezzemolate") e s1 (la stringa di input).
+Le due stringhe devono essere identiche, quindi inserisco "Patate-Prezzemolate".
+Secondo input:
+
+Viene chiamata la funzione check_quantities.
+Il numero di input viene raddoppiato e il risultato viene aggiunto al valore originale.
+Il risultato finale deve essere uguale a 0A8h (168 in decimale).
+Devo inserire un numero tale che 168 = x * 2 + x.
+Calcolo 168 / 3 = 56 e inserisco 56.
+Terzo input:
+
+Il numero di input deve essere uguale a 7Bh (123 in decimale).
+Inserisco 123.
+Input finale:
+
+Viene chiamata la funzione check_secret.
+
+La lunghezza della stringa deve essere uguale a 5.
+
+Vengono eseguiti confronti carattere per carattere.
+
+Le stringhe sono rappresentate come array di caratteri.
+
+Gli indici da accedere sono determinati dalle variabili s, var_1F, var_1E, var_1D e var_1C (il primo carattere è in [rbp+s], il secondo in [rbp+var_1F], e così via).
+
+In base ai confronti fatti per ciascun indice, ricavo la seguente stringa:
+
+53h ; 'S'
+77h ; 'w'
+65h ; 'e'
+34h ; '4'
+54h ; 'T'
+Inserisco la stringa "Swe4T" e ottengo il flag.
+
+Flag: SPRITZ{D15gUsT!nG!!}
+
+Ghidra
+Eseguo il file usando il comando ./PiovegoRecipe per avviare il programma.
+Uso Ghidra per analizzare e disassemblare il file eseguibile.
+Primo input:
+
+Main:
+
+c
+Copia codice
+char local_48[32];
+__isoc99_scanf(&DAT_0040226e, local_48);
+iVar1 = strcmp(local_48, "Patate-Prezzemolate");
+if (iVar1 != 0) {
+  exit(0);
+}
+printf("\nGreat! Now let\'s see if you know how to prepare them :)");
+La variabile local_48 contiene la stringa inserita come input.
+local_48 deve essere uguale a "Patate-Prezzemolate".
+Pertanto, inserisco "Patate-Prezzemolate".
+Secondo e Terzo input:
+
+Main:
+
+c
+Copia codice
+iVar1 = check_quantities();
+if (iVar1 == 0) {
+  exit(0);
+}
+puts("Wow, it seems you have studied!! :)");
+check_quantities:
+
+c
+Copia codice
+printf("\nHow many potatoes do you need for 100 people? ");
+__isoc99_scanf(&DAT_004022a8, &local_18);
+if (local_18 * 3 == 0xa8) {
+  printf("\nGood, and how much parsley? ");
+  __isoc99_scanf(&DAT_004022a8, &local_14);
+  if (local_14 == 0x7b) {
+    uVar1 = 1;
+  }
+}
+return uVar1;
+Secondo input:
+
+Viene chiamata la funzione check_quantities.
+Il triplo del numero di input deve essere uguale a 0xa8 (168 in decimale).
+Calcolo 168 / 3 = 56 e inserisco 56.
+Terzo input:
+
+Il numero di input deve essere uguale a 0x7b (123 in decimale).
+Inserisco 123.
+Input finale:
+
+Main:
+
+c
+Copia codice
+char local_28;
+char local_27;
+char local_26;
+char local_25;
+char local_24;
+iVar1 = check_secret();
+if (iVar1 == 0) {
+  exit(0);
+}
+puts("Yes YeS YESS! Sweat and hard work are the ingredients for success!! Welcome on board!!!");
+check_secret:
+
+c
+Copia codice
+printf("\nWhat is the super iper mega special and secret ingredient?? ");
+__isoc99_scanf(&DAT_0040226e, &local_28);
+sVar1 = strlen(&local_28);
+if (sVar1 == 5) {
+  if (local_28 == 'S') {
+    if (local_26 == 'e') {
+      if (local_24 == 'T') {
+        if (local_27 == 'w') {
+          if (local_25 == '4') {
+            uVar2 = 1;
+          }
+return uVar2;
+Viene chiamata la funzione check_secret.
+La lunghezza della stringa deve essere uguale a 5.
+DAT_0040226e è una stringa di formato (%s), quindi scanf si aspetta una stringa di caratteri come input.
+Poiché local_28 è una variabile di tipo char, &local_28 significa che scanf leggerà la stringa inserita e la memorizzerà a partire dall'indirizzo di local_28.
+Pertanto, ciascuna variabile, a partire da local_28, conterrà un carattere della stringa.
+Inserisco la stringa "Swe4T" e ottengo il flag.
+Flag: SPRITZ{D15gUsT!nG!!}

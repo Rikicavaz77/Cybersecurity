@@ -1,0 +1,38 @@
+Modifico la funzione is_someone_cheating sostituendo il salto condizionato (jnz) con un salto incondizionato (jmp) e applico una patch al programma.
+
+Avvio GDB.
+
+Imposto un breakpoint all'inizio della funzione play_game_no_patch ed eseguo il programma.
+
+kotlin
+Copia codice
+break play_game_no_patch  
+Una volta raggiunto il breakpoint, leggo la stringa memorizzata nel registro rax o rdi, che corrisponde al parametro della funzione, ossia la sequenza di mosse necessarie per vincere.
+
+Modifico la stringa aggiungendo un carattere speciale \n dopo ogni carattere.
+
+Scrivo ed eseguo uno script GDB per automatizzare le due azioni precedenti.
+
+bash
+Copia codice
+source gdb_script.txt  
+Inserisco la stringa formattata e ottengo la flag.
+
+Flag: SPRITZ{WhaT_A_fUn_gAme}
+
+Soluzione Alternativa
+Se non è necessario che la generazione del ponte rimanga casuale a ogni esecuzione, posso fare una modifica aggiuntiva prima di patchare il programma.
+
+Nella funzione generate_random_step, posso modificare una delle seguenti due istruzioni:
+
+asm
+Copia codice
+mov     [rbp+var_B], 524Ch  
+movzx   eax, byte ptr [rbp+rax+var_B]  
+Nel primo caso, posso sostituire 0x524c ("RL") con 0x4c4c ("LL") o 0x5252 ("RR"), in modo che la sequenza rimanga la stessa nonostante l'offset casuale.
+
+Nel secondo caso, posso semplicemente sostituire byte ptr [rbp+rax+var_B] con 0x4c, eliminando la casualità.
+
+Eseguo il programma, digitando sempre lo stesso carattere, e ottengo la flag.
+
+Flag: SPRITZ{WhaT_A_fUn_gAme}

@@ -1,0 +1,69 @@
+Il programma richiede alcuni semplici input iniziali.
+
+Premo il tasto Invio e digito la stringa "Anya Forger, Park Avenue 128".
+
+I due passaggi successivi richiedono l'inserimento di un numero, che viene confrontato con un altro numero pseudo-casuale.
+
+Avvio gdb per eseguire il debug del programma, ma quando eseguo il comando run, ricevo un avviso sospetto e il programma termina.
+
+La funzione security_check, chiamata all'interno della funzione think, sembra impedire l'uso di gdb.
+
+Modifico la funzione security_check sostituendo il salto condizionato (jz) con un salto incondizionato (jmp) e applico una patch al programma.
+
+Usando gdb e analizzando i registri, ho diverse opzioni per ottenere la flag, come sfruttare l'istruzione che imposta il seme:
+
+asm
+Copia codice
+mov     edi, eax        ; seed  
+call    _srand  
+Tuttavia, decido di concentrarmi sui valori restituiti dalla funzione think:
+
+asm
+Copia codice
+call    think  
+mov     [rbp+var_38], eax  
+call    think  
+mov     [rbp+var_34], eax  
+Per prima cosa, imposto un breakpoint sulla seguente istruzione:
+
+asm
+Copia codice
+call    _strcmp  
+break *0x0040182E  
+Il registro rdi contiene l'indirizzo della variabile s1.
+
+Copia codice
+rdi            0x7fffffffdd00  
+rbp            0x7fffffffdd30  
+Eseguo il comando x/s 0x7fffffffdd00 e ottengo il valore della variabile s1.
+arduino
+Copia codice
+0x7fffffffdd00: "Anya Forger, Park Avenue 128"  
+Considero le seguenti due istruzioni:
+csharp
+Copia codice
+s1 = byte ptr -30h  
+[rbp+s1]  
+La posizione di s1 rispetto al base pointer (rbp) è -0x30 (48 byte sotto il valore di rbp nello stack).
+rbp = 0x7fffffffdd30. Quindi, s1 = rbp - 0x30 = 0x7fffffffdd30 - 0x30 = 0x7fffffffdd00.
+0x7fffffffdd00 è esattamente l'indirizzo della variabile s1.
+Posso applicare lo stesso ragionamento alle variabili var_38 e var_34, che contengono il valore restituito dalla funzione think.
+Imposto due breakpoint immediatamente dopo le chiamate alla funzione think.
+kotlin
+Copia codice
+break *0x0040186D  
+break *0x004018D7  
+Una volta raggiunto il primo breakpoint, controllo il valore della variabile var_38, la cui posizione rispetto al base pointer è -0x38.
+bash
+Copia codice
+x /d 0x7fffffffdcf8  
+0x7fffffffdcf8: 7  
+Digito continue e inserisco il numero 7.
+Una volta raggiunto il secondo breakpoint, controllo il valore della variabile var_34, la cui posizione rispetto al base pointer è -0x34.
+bash
+Copia codice
+x /d 0x7fffffffdcfc  
+0x7fffffffdcfc: 7  
+Digito continue e inserisco il numero 7.
+Questo processo mi permette di superare tutti i passaggi senza conoscere il seme, mantenendo quindi la casualità nella generazione dei numeri.
+Flag: SPRITZ{Ez_Adm1tT3d!!}

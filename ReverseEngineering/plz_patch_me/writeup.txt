@@ -1,0 +1,44 @@
+1) After entering a character other than 'n', the program prompts for the input of a string.
+2) I replace the conditional jump jz with an unconditional jump jmp, allowing the program to accept any input.
+3) Next, the program prompts for a number.
+4) Since the number is generated randomly, I again replace the conditional jump jz with an unconditional jump jmp, so the program accepts any input.
+5) A loop then executes, printing a series of messages on the screen:
+
+  for (local_c4 = 0; local_c4 < 0x96; local_c4 = local_c4 + 1) {
+    puts("Nice ");
+    sleep(1);
+  }
+
+6) This loop waits for 150 seconds without performing any useful operations to obtain the flag.
+7) Therefore, I replace the conditional jump jle with nop (opcode 90).
+8) The same applies to the following loop:
+
+  for (local_c4 = 0; local_c4 < 0x96; local_c4 = local_c4 + 1) {
+    puts("...");
+    sleep(1);
+  }
+
+9) I replace the conditional jump jle with nop (opcode 90).
+10) I execute the program and obtain the flag.
+
+ __    __     _                            _          _____ _              ___  __  __ _
+/ / /\ \ \___| | ___ ___  _ __ ___   ___  | |_ ___   /__   \ |__   ___    /___\/ _|/ _(_) ___ ___
+\ \/  \/ / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \    / / \/ '_ \ / _\  //  // |_| |_| |/ __/ _ \
+ \  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) |  / /  | | | |  __/ / \_//|  _|  _| | (_|  __/
+  \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \/   |_| |_|\___| \___/ |_| |_| |_|\___\___|
+
+We are ready to start your interview to be a regional manager, are you ready? [Y]/n
+Y
+Can you tell me your name, surname, and your current position?
+
+Ok great, now tell me your hobby bewteen these choices.
+0 - Eat
+1 - Badminton
+2 - Battlestar galactica
+3 - Annoying people
+4 - Play Lol
+2
+Perfect hobby for a regional manager!
+
+Should I get you...
+spritz{th4ts_wh4t_sh3_s41d}

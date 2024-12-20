@@ -1,0 +1,24 @@
+Ho notato che la flag viene stampata nella funzione give_the_man_a_guitar, ma questa funzione non viene chiamata nella funzione main.
+
+Poi ho osservato tre istruzioni interessanti:
+
+c
+Copia codice
+__isoc99_scanf(&DAT_004024de, &temp);
+__isoc99_scanf(&DAT_004024de, &pointer);
+*pointer = temp;
+La prima istruzione legge un input e lo memorizza nella variabile temp.
+
+La seconda istruzione legge un input e lo assegna alla variabile pointer.
+
+La variabile pointer è un puntatore a un intero, quindi utilizzando il carattere speciale & posso modificare l'indirizzo di memoria a cui punta.
+
+La terza istruzione accede all'area di memoria puntata dalla variabile pointer e vi salva il contenuto della variabile temp.
+
+Posso usare questa sequenza di istruzioni per sovrascrivere una voce nella GOT (Global Offset Table) e prendere il controllo del flusso di esecuzione del programma, chiamando una funzione al posto di un'altra.
+
+Posso sostituire la funzione exit().
+
+Scrivo uno script Python per sovrascrivere la voce della GOT riservata alla funzione exit, sostituendo l'indirizzo della funzione exit con l'indirizzo della funzione give_the_man_a_guitar.
+
+Flag: SPRITZ{St4nDndTTM4L3}
