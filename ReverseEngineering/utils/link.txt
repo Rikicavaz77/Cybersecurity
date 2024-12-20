@@ -1,1 +1,13 @@
+# Decompiler
 https://dogbolt.org/
+
+https://www.binaryhexconverter.com/hex-to-decimal-converter
+https://kryptos.altervista.org/ascii/
+https://www.calculator.net/hex-calculator.html?number1=7fffffffdd60&c2op=%2B&number2=44&calctype=op&x=Calculate
+https://scoding.de/ropper/
+https://shell-storm.org/index.html#hero
+https://shell-storm.org/shellcode/files/shellcode-827.html
+https://man7.org/linux/man-pages/man2/ptrace.2.html
+https://docs.pwntools.com/en/stable/
+http://ref.x86asm.net/coder64.html#x0FEC
+https://visualgdb.com/gdbreference/commands/disassemble
