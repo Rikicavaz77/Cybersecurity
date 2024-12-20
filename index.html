@@ -44,10 +44,10 @@
     // URL della repository GitHub (modifica questa variabile con il tuo URL)
     const repoURL = 'https://api.github.com/repos/Rikicavaz77/Cybersecurity/contents/ReverseEngineering/';
 
-    // Funzione per ottenere i file dalla cartella 'ReverseEngineering'
-    async function getFilesFromRepo() {
+    // Funzione per ottenere i file dalla cartella 'ReverseEngineering' e sottocartelle
+    async function getFilesFromRepo(url) {
       try {
-        const response = await fetch(repoURL);
+        const response = await fetch(url);
         const files = await response.json();
 
         if (response.ok) {
@@ -63,43 +63,59 @@
     }
 
     // Funzione per mostrare il contenuto del file
-    async function fetchFileContent(filePath) {
-      const response = await fetch(filePath);
+    async function fetchFileContent(fileUrl) {
+      const response = await fetch(fileUrl);
       if (response.ok) {
         const content = await response.text();
         return content;
       } else {
-        return 'Impossibile caricare il file: ' + filePath;
+        return 'Impossibile caricare il file: ' + fileUrl;
       }
     }
 
-    // Funzione per generare la lista di file
-    async function generateFileList() {
-      const files = await getFilesFromRepo();
+    // Funzione per generare la lista di file e cartelle
+    async function generateFileList(folderUrl) {
+      const files = await getFilesFromRepo(folderUrl);
       const listElement = document.createElement('ul');
       listElement.classList.add('file-list');
 
-      files.forEach(file => {
+      for (const file of files) {
         const li = document.createElement('li');
-        
-        const fileLink = document.createElement('a');
-        fileLink.href = '#';
-        fileLink.textContent = file.name;
-        fileLink.onclick = async function() {
-          const content = await fetchFileContent(file.download_url);
-          const fileContentDiv = document.getElementById('file-content');
-          fileContentDiv.textContent = content;
-        };
 
-        li.appendChild(fileLink);
+        if (file.type === 'file') {
+          // Crea un link per i file
+          const fileLink = document.createElement('a');
+          fileLink.href = '#';
+          fileLink.textContent = file.name;
+          fileLink.onclick = async function() {
+            const content = await fetchFileContent(file.download_url);
+            const fileContentDiv = document.getElementById('file-content');
+            fileContentDiv.textContent = content;
+          };
+
+          li.appendChild(fileLink);
+        } else if (file.type === 'dir') {
+          // Crea un link per le sottocartelle (cartelle)
+          const folderLink = document.createElement('a');
+          folderLink.href = '#';
+          folderLink.textContent = file.name;
+          folderLink.onclick = function() {
+            // Quando si clicca su una cartella, carica la lista di file e sottocartelle
+            const folderPath = file.url; // Ottieni l'URL per la sottocartella
+            generateFileList(folderPath); // Rendi ricorsiva la navigazione
+          };
+
+          li.appendChild(folderLink);
+        }
+
         listElement.appendChild(li);
-      });
+      }
 
       document.getElementById('folders').appendChild(listElement);
     }
 
-    // Inizializza la lista dei file
-    generateFileList();
+    // Inizializza la lista dei file e cartelle alla partenza
+    generateFileList(repoURL);
   </script>
 
   <h2>Contenuto del file:</h2>
