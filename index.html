@@ -9,9 +9,6 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    .folder {
-      margin-bottom: 20px;
-    }
     .file-list {
       list-style-type: none;
       padding-left: 20px;
@@ -47,65 +44,55 @@
     // URL della repository GitHub (modifica questa variabile con il tuo URL)
     const repoURL = 'https://raw.githubusercontent.com/Rikicavaz77/Cybersecurity/main/ReverseEngineering/';
 
-    // Funzione per ottenere i contenuti della cartella e visualizzare i file
-    async function fetchFolderContents(folder) {
-      const response = await fetch(repoURL + folder);
-      const text = await response.text();
-      
-      // Crea una lista di file
-      const files = text.split('\n').filter(file => file.trim().length > 0);
+    // File da visualizzare, ad esempio
+    const files = [
+      'folder1/file1.py',
+      'folder2/file2.txt',
+      'folder3/file3.py',
+      // Aggiungi altri file che desideri includere
+    ];
 
-      const folderDiv = document.createElement('div');
-      folderDiv.classList.add('folder');
+    // Funzione per mostrare il contenuto del file
+    async function fetchFileContent(filePath) {
+      const response = await fetch(repoURL + filePath);
+      if (response.ok) {
+        const content = await response.text();
+        return content;
+      } else {
+        return 'Impossibile caricare il file: ' + filePath;
+      }
+    }
 
-      const folderTitle = document.createElement('h2');
-      folderTitle.textContent = folder;
-      folderDiv.appendChild(folderTitle);
+    // Funzione per generare la lista di file
+    async function generateFileList() {
+      const listElement = document.createElement('ul');
+      listElement.classList.add('file-list');
 
-      const fileList = document.createElement('ul');
-      fileList.classList.add('file-list');
-      
-      files.forEach(file => {
+      for (const file of files) {
         const li = document.createElement('li');
-        const fileName = file.trim();
-        const filePath = repoURL + folder + '/' + fileName;
+        
+        const fileLink = document.createElement('a');
+        fileLink.href = '#';
+        fileLink.textContent = file;
+        fileLink.onclick = async function() {
+          const content = await fetchFileContent(file);
+          const fileContentDiv = document.getElementById('file-content');
+          fileContentDiv.textContent = content;
+        };
 
-        // Se è un file di codice, mostralo nel browser
-        if (fileName.endsWith('.py') || fileName.endsWith('.txt')) {
-          const fileLink = document.createElement('a');
-          fileLink.href = filePath;
-          fileLink.textContent = fileName;
-          fileLink.target = '_blank';
-          li.appendChild(fileLink);
-        } else {
-          // Se non è un file di codice, lo mostriamo come download
-          const downloadLink = document.createElement('a');
-          downloadLink.href = filePath;
-          downloadLink.textContent = "Download " + fileName;
-          downloadLink.download = fileName;
-          li.appendChild(downloadLink);
-        }
+        li.appendChild(fileLink);
+        listElement.appendChild(li);
+      }
 
-        fileList.appendChild(li);
-      });
-
-      folderDiv.appendChild(fileList);
-      document.getElementById('folders').appendChild(folderDiv);
+      document.getElementById('folders').appendChild(listElement);
     }
 
-    // Funzione per caricare la struttura delle cartelle
-    async function loadRepository() {
-      const response = await fetch(repoURL);
-      const text = await response.text();
-      const folders = text.split('\n').filter(line => line.trim().length > 0);
-
-      folders.forEach(folder => {
-        fetchFolderContents(folder);
-      });
-    }
-
-    // Avvio del caricamento
-    loadRepository();
+    // Inizializza la lista dei file
+    generateFileList();
   </script>
+
+  <h2>Contenuto del file:</h2>
+  <div id="file-content" class="file-content"></div>
+
 </body>
 </html>
