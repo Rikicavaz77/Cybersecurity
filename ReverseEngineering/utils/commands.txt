@@ -1,3 +1,5 @@
+chmod +x ./guess_thissss
+
 objdump -d ./hello_world
 ltrace ./split
 
