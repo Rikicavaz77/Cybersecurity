@@ -1,0 +1,32 @@
+aaa
+afl
+s main
+pdc
+pdf
+pdg
+pdf @ sym.main
+pdf @ sym.usefulFunction
+
+# breakpoint
+db sym.main
+
+# rimuove un breakpoint
+db- 0x401020
+
+# rimuove tutti i breakpoint
+db-* 
+
+# avvia il programma
+dc
+
+f~useful
+px 8 @ obj.usefulString
+iz
+px 8 @ 0x00601060
+
+
+rabin2 -s callme | grep useful
+rabin2 -s callme | grep callme
+
+# Visualizzare tutte le sezioni di un binario e i relativi permessi
+iS
