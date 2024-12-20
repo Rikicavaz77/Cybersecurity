@@ -42,19 +42,29 @@
 
   <script>
     // URL della repository GitHub (modifica questa variabile con il tuo URL)
-    const repoURL = 'https://raw.githubusercontent.com/Rikicavaz77/Cybersecurity/main/ReverseEngineering/';
+    const repoURL = 'https://api.github.com/repos/Rikicavaz77/Cybersecurity/contents/ReverseEngineering/';
 
-    // File da visualizzare, ad esempio
-    const files = [
-      'AllBad_plt_got/solution.py',
-      'folder2/file2.txt',
-      'folder3/file3.py',
-      // Aggiungi altri file che desideri includere
-    ];
+    // Funzione per ottenere i file dalla cartella 'ReverseEngineering'
+    async function getFilesFromRepo() {
+      try {
+        const response = await fetch(repoURL);
+        const files = await response.json();
+
+        if (response.ok) {
+          return files;
+        } else {
+          console.error('Errore nell\'ottenere i file:', files);
+          return [];
+        }
+      } catch (error) {
+        console.error('Errore di connessione:', error);
+        return [];
+      }
+    }
 
     // Funzione per mostrare il contenuto del file
     async function fetchFileContent(filePath) {
-      const response = await fetch(repoURL + filePath);
+      const response = await fetch(filePath);
       if (response.ok) {
         const content = await response.text();
         return content;
@@ -65,24 +75,25 @@
 
     // Funzione per generare la lista di file
     async function generateFileList() {
+      const files = await getFilesFromRepo();
       const listElement = document.createElement('ul');
       listElement.classList.add('file-list');
 
-      for (const file of files) {
+      files.forEach(file => {
         const li = document.createElement('li');
         
         const fileLink = document.createElement('a');
         fileLink.href = '#';
-        fileLink.textContent = file;
+        fileLink.textContent = file.name;
         fileLink.onclick = async function() {
-          const content = await fetchFileContent(file);
+          const content = await fetchFileContent(file.download_url);
           const fileContentDiv = document.getElementById('file-content');
           fileContentDiv.textContent = content;
         };
 
         li.appendChild(fileLink);
         listElement.appendChild(li);
-      }
+      });
 
       document.getElementById('folders').appendChild(listElement);
     }
