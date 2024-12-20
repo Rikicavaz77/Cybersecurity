@@ -16,3 +16,6 @@ readelf -S ./write4
 
 # Visualizzare un elenco delle funzioni e variabili simboliche nel binario
 readelf -s ./write4
+
+strings ./honeydex
+strings ./honeydex | grep "TIP"
