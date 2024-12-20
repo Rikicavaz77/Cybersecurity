@@ -16,3 +16,4 @@ x 1/w 0x7fffffffdd20
 print "%s", $rax
 print "%c", $rax + 0
 x /32b $rbp-0x20
+x/40xb $rax
