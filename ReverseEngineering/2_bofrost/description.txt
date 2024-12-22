@@ -1,0 +1,4 @@
+You want food for this Christams? Just ask Bofrost!
+Remember, our name is (BoF)rost!
+
+Here you have the source code, but you cannot read the flag file directly as a solution.

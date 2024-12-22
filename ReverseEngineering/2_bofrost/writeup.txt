@@ -1,0 +1,46 @@
+1) The binary uses Full RELRO (Relocation Read-Only), which makes the GOT (Global Offset Table) fully protected.
+2) The binary has no stack canary, meaning there is no random value placed before the return address on the stack that would detect modifications during an attack.
+3) The binary is compiled with PIE (Position Independent Executable), which means its sections are mapped to randomized addresses every time the program is executed.
+4) A memory leak is required to exploit the binary.
+5) The stack is executable, so I can write shellcode directly to the stack and jump to it for execution.
+6) I can perform a stack-based buffer overflow using shellcode.
+7) The input is read using the gets function.
+8) I write the shellcode into the buffer:
+
+asm(shellcraft.sh())
+
+9) I need to add padding to reach the return address.
+10) To find the offset, I launch GDB and run the following commands:
+
+pattern_create 300 pat_300
+run < pat_300
+pattern_search
+
+11) The offset is 264.
+
+shellcode + b"A" * (offset - len(shellcode))
+
+12) I need to overwrite the return address.
+13) The address to jump to is where the shellcode is stored.
+14) I set a breakpoint at the instruction immediately after the gets function:
+
+break *0x00005555554008ed
+
+15) The address of the variable on the stack is 0x7fffffffdc30.
+16) The program also provides a memory leak:
+
+RSP = 0x7fffffffdc20
+
+17) I calculate the difference between the two addresses:
+
+print /x 0x7fffffffdc30-0x7fffffffdc20
+
+18) The difference is 0x10 (16 in decimal).
+19) I replace the return address with RSP (0x7fffffffdc20) shifted by 16 bytes to jump to the variable's address containing the shellcode:
+
+p64(stack_leak + 0x10)
+
+20) I send the payload and observe that a shell is spawned.
+21) I execute the cat flag command and retrieve the flag:
+
+Flag: spritz{BoFrosting_outs1d3_th3s3_days}

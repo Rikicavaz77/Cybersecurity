@@ -1,0 +1,46 @@
+1) Il binario utilizza Full RELRO (Relocation Read-Only), che rende la GOT (Global Offset Table) completamente protetta.
+2) Il binario non ha stack canary, ossia un valore casuale posizionato prima del return address nello stack che, se modificato, consente al programma di rilevare l'attacco.
+3) Il binario è stato compilato con PIE (Position Independent Executable), il che significa che le sezioni vengono mappate a un indirizzo randomizzato ogni volta che il programma viene eseguito.
+4) È necessario ottenere un leak di memoria per effettuare l'exploit.
+5) Lo stack è eseguibile, quindi posso scrivere codice shellcode direttamente nello stack e saltarci sopra per eseguirlo. 
+6) Posso effettuare uno stack-based buffer overflow con shellcode.
+7) L'input viene letto tramite la funzione gets.
+8) Scrivo nel buffer lo shellcode.
+
+asm(shellcraft.sh())
+
+9) Devo inserire padding per raggiungere il return address.
+10) Per trovare l'offset, avvio il gdb ed eseguo i seguenti comandi:
+
+pattern_create 300 pat_300
+run < pat_300
+pattern_search
+
+11) L'offset è 264.
+
+shellcode + b"A" * (offset - len(shellcode))
+
+12) Devo sovrascrivere il return address.
+13) L'indirizzo a cui saltare è quello in cui è memorizzato lo shellcode.
+14) Inserisco un breakpoint sull'istruzione immediatamente successiva alla funzione gets.
+
+break *0x00005555554008ed
+
+15) L'indirizzo della variabile nello stack è 0x7fffffffdc30.
+16) Il programma restituisce anche un leak di memoria:
+
+RSP = 0x7fffffffdc20
+
+17) Calcolo la differenza tra i due indirizzi:
+
+print /x 0x7fffffffdc30-0x7fffffffdc20
+
+18) La distanza è 0x10 (16 in decimale).
+19) Sostituisco il return address con l'indirizzo di RSP (0x7fffffffdc20) spostato di 16 byte, in modo da saltare all'indirizzo della variabile che contiene lo shellcode.
+
+p64(stack_leak + 0x10)
+
+20) Invio il payload e noto che viene generata una shell.
+21) Eseguo il comando cat flag e ottengo la flag.
+
+Flag: spritz{BoFrosting_outs1d3_th3s3_days}
