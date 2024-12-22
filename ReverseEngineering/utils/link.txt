@@ -11,3 +11,4 @@ https://man7.org/linux/man-pages/man2/ptrace.2.html
 https://docs.pwntools.com/en/stable/
 http://ref.x86asm.net/coder64.html#x0FEC
 https://visualgdb.com/gdbreference/commands/disassemble
+http://www.alexonlinux.com/how-debugger-works
