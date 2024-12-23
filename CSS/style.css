@@ -1,0 +1,241 @@
+* {
+  padding: 0;
+  margin : 0;
+}
+
+:root {
+  --font-body-family: "Press Start 2P", sans-serif;
+  --bgColor: #000;
+  --txtColor: #16ee36;
+  --hBgColor: #000;
+  --hTextColor: #16ee36;
+  --fBgColor: #000; 
+  --fTextColor: #16ee36;
+  --visitedLinkColor: #fff;
+  --linkColor: #fff;
+  --sectionBgColor: #000;
+  --fileContentBgColor: #000;
+  --font-file-content-family: monospace;
+  --goToTopBgColor: #fff;
+  --goToTopTxtColor: #000; 
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html body {
+  font-size: 100%;
+  font-family: var(--font-body-family);
+  background-color: var(--bgColor);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h2 {
+  font-size: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.navigation-helps {
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+header {
+  background-color: var(--hBgColor);
+  color: var(--hTextColor);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 1em;
+  border-bottom: 1px dotted #d7d4d4;
+}
+
+.title-container {
+  display: none;
+}
+
+#menu {
+  flex: 1;
+}
+
+#menu ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu ul li {
+  font-size: 1.2em;
+  padding: 0.5em;
+  margin: 0 1em;
+}
+
+#menu a {
+  color: var(--hTextColor);
+  text-decoration: none;
+}
+
+.hamb {
+  display: none;
+}
+
+main {
+  flex: 1 0 auto;
+  color: var(--txtColor);
+  max-width: 1024px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#go-to-top {
+  position: fixed;
+  bottom: 1.2em;
+  right: 1.8em;
+  background-color: var(--goToTopBgColor);
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,.20);
+  opacity: 0;
+  z-index: 99;
+}
+
+#go-to-top a {
+  color: var(--goToTopTxtColor);
+  text-decoration: none;
+}
+
+#go-to-top i {
+  font-size: 1.6em;
+  font-weight: bold;
+  padding: 0.5em;
+}
+
+#go-to-top.active {
+  opacity: 1;
+}
+
+footer {
+  font-size: 1.1em;
+  background-color: var(--fBgColor);
+  color: var(--fTextColor);
+  line-height: 1.2;
+  text-align: center;
+  padding: 1.5em 1em;
+}
+
+.welcome {
+  text-align: center;
+  padding: 0.5em;
+  margin: 1em 0.5em;
+  margin-top: 5em;
+}
+
+.logo-container {
+  width: 150px;
+  height: 150px;
+  margin: 0.5em auto;
+  border-radius: 100%;
+}
+
+.logo-container h1 {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  background-image: url(../assets/logo.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-indent: -9999em;
+  margin: auto;
+  border-radius: 100%;
+}
+
+.welcome hr {
+  width: 5rem;
+  border-radius: 5px;
+  border: 4px solid #fff;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+section {
+  background-color: var(--sectionBgColor);
+  padding: 1em;
+  padding-top: 0.3em;
+  margin: 0.5em 0.8em;
+}
+
+section a {
+  color: var(--linkColor);
+  font-weight: 700;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+section a:hover {
+  text-decoration: underline;
+}
+
+.file-list {
+  list-style-type: none;
+  padding: 0.3em;
+  padding-left: 1.25em;
+}
+
+.file-list:not(ul ul) {
+  list-style-type: square;
+}
+
+.file-list li {
+  margin: 1em 0;
+}
+
+.file-content {
+  font-family: var(--font-file-content-family);
+  background-color: var(--fileContentBgColor);
+  padding: 0.625em;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 0 50px rgba(255, 255, 255, 0.03),
+    inset 0 4px 10px rgba(255, 255, 255, 0.1),
+    0 8px 20px rgba(0, 0, 0, 0.8);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.file-content.hidden {
+  visibility: hidden;
+}
+
+#credits {
+  list-style-type: square;
+  line-height: 1.5;
+  padding: 0.3em;
+  padding-left: 1.25em;
+}
+
+#credits li {
+  margin: 1em 0;
+}

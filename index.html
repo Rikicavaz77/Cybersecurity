@@ -1,125 +1,76 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reverse Engineering Repository</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .file-list {
-      list-style-type: none;
-      padding-left: 20px;
-    }
-    .file-list li {
-      margin-bottom: 10px;
-    }
-    .file-content {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border-radius: 5px;
-      font-family: monospace;
-      white-space: pre-wrap; /* Mantiene i ritorni a capo nei file */
-      max-width: 800px;
-    }
-    a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity CTF Solution</title>  
+    <meta name="keywords" content="cybersecurity, challenge, ctf, exploit, università di padova, unipd">
+    <meta name="description" content="Raccolta di challenge CTF con annesse soluzioni (script e writeup) in ambito di Cybersecurity.">
+    <meta name="author" content="Rikicavaz">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" media="only screen and (max-width: 768px)" href="CSS/mini.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <a class="navigation-helps" href="#start-here">Vai al contenuto</a>
+    <header>
+      <div class="title-container">
+        <h1><abbr title="Capture the Flag">CTF</abbr></h1>
+      </div>
+      <nav id="menu" aria-label="Menu di navigazione principale">
+        <ul>
+          <li><a href="#crypto" onclick="menuOC()">Crypto</a></li>
+          <li><a href="#reveng" onclick="menuOC()">Reverse Engineering</a></li>
+          <li><a href="#web" onclick="menuOC()">Web</a></li>
+        </ul>
+      </nav>
+      <button type="button" id="hamburger" class="hamb" onclick="menuOC()">
+        Menù a schermo intero
+      </button>
+    </header>
 
-  <h1>Contenuti della cartella ReverseEngineering</h1>
-
-  <!-- Cartelle e file -->
-  <div id="folders"></div>
-
-  <script>
-    // URL della repository GitHub (modifica questa variabile con il tuo URL)
-    const repoURL = 'https://api.github.com/repos/Rikicavaz77/Cybersecurity/contents/ReverseEngineering/';
-
-    // Funzione per ottenere i file dalla cartella 'ReverseEngineering' e sottocartelle
-    async function getFilesFromRepo(url) {
-      try {
-        const response = await fetch(url);
-        const files = await response.json();
-
-        if (response.ok) {
-          return files;
-        } else {
-          console.error('Errore nell\'ottenere i file:', files);
-          return [];
-        }
-      } catch (error) {
-        console.error('Errore di connessione:', error);
-        return [];
-      }
-    }
-
-    // Funzione per mostrare il contenuto del file
-    async function fetchFileContent(fileUrl) {
-      const response = await fetch(fileUrl);
-      if (response.ok) {
-        const content = await response.text();
-        return content;
-      } else {
-        return 'Impossibile caricare il file: ' + fileUrl;
-      }
-    }
-
-    // Funzione per generare la lista di file e cartelle
-    async function generateFileList(folderUrl) {
-      const files = await getFilesFromRepo(folderUrl);
-      const listElement = document.createElement('ul');
-      listElement.classList.add('file-list');
-
-      for (const file of files) {
-        const li = document.createElement('li');
-
-        if (file.type === 'file') {
-          // Crea un link per i file
-          const fileLink = document.createElement('a');
-          fileLink.href = '#';
-          fileLink.textContent = file.name;
-          fileLink.onclick = async function() {
-            const content = await fetchFileContent(file.download_url);
-            const fileContentDiv = document.getElementById('file-content');
-            fileContentDiv.textContent = content;
-          };
-
-          li.appendChild(fileLink);
-        } else if (file.type === 'dir') {
-          // Crea un link per le sottocartelle (cartelle)
-          const folderLink = document.createElement('a');
-          folderLink.href = '#';
-          folderLink.textContent = file.name;
-          folderLink.onclick = function() {
-            // Quando si clicca su una cartella, carica la lista di file e sottocartelle
-            const folderPath = file.url; // Ottieni l'URL per la sottocartella
-            generateFileList(folderPath); // Rendi ricorsiva la navigazione
-          };
-
-          li.appendChild(folderLink);
-        }
-
-        listElement.appendChild(li);
-      }
-
-      document.getElementById('folders').appendChild(listElement);
-    }
-
-    // Inizializza la lista dei file e cartelle alla partenza
-    generateFileList(repoURL);
-  </script>
-
-  <h2>Contenuto del file:</h2>
-  <div id="file-content" class="file-content"></div>
-
-</body>
+    <main id="start-here">
+      <div class="welcome">
+        <div class="logo-container">
+          <h1>Soluzioni delle challenge <abbr title="Capture the Flag">CTF</abbr></h1>
+        </div>
+        <h1>Cybersecurity</h1>
+        <hr>
+      </div>
+      <section id="crypto">
+        <h2>Crypto</h2>
+        <div class="folders"></div>
+      </section>
+      <section id="reveng">
+        <h2>Reverse Engineering</h2>
+        <div class="folders"></div>
+      </section>
+      <section id="web">
+        <h2>Web</h2>
+        <div class="folders"></div>
+      </section>
+      <section>
+        <div id="file-content" class="file-content hidden"></div>
+      </section>
+      <section>
+        <h2>Crediti</h2>
+        <ul id="credits">
+          <li>Icona Menù d'Apertura: <a href="https://www.flaticon.com/free-icons/hamburger" title="hamburger icons" lang="en">Hamburger icons created by Lizel Arina - Flaticon</a></li>
+          <li>Icona Menù di Chiusura: <a href="https://www.flaticon.com/free-icons/close" title="close icons" lang="en">Close icons created by Pixel perfect - Flaticon</a></li>  
+        </ul>
+      </section>
+      <div id="go-to-top">
+        <a href="#" aria-label="Torna su">
+          <i class="fa-solid fa-angle-up" aria-hidden="true"></i>
+        </a>
+      </div>
+    </main>
+    <footer id="footer">
+      <p>© <span lang="en">Copyright</span> 2024 Rikicavaz - Tutti i diritti riservati</p>
+    </footer>
+    <script src="JS/app.js"></script>
+    <script src="https://kit.fontawesome.com/2736720d94.js" crossorigin="anonymous"></script>
+  </body>
 </html>
