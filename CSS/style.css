@@ -224,13 +224,16 @@ section a:hover {
     0 0 50px rgba(255, 255, 255, 0.03),
     inset 0 4px 10px rgba(255, 255, 255, 0.1),
     0 8px 20px rgba(0, 0, 0, 0.8);
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-break: break-all;
 }
 
 .file-content.hidden {
   visibility: hidden;
+}
+
+.file-content p {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .file-content #copy-to-clipboard {
@@ -240,7 +243,6 @@ section a:hover {
   background-color: var(--copyToClipboardBtnBgColor);
   border-radius: 10px;
   border: none;
-  white-space: normal;
   cursor: pointer;
 }
 

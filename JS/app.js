@@ -69,7 +69,7 @@ async function generateFileList(folderUrl) {
       fileLink.onclick = async function () {
         const fileContent = await getFileContent(file.download_url);
         const fileContentBox = document.getElementById('file-content');
-        fileContentBox.prepend(fileContent);
+        fileContentBox.querySelector('p').textContent = fileContent;
         fileContentBox.classList.remove('hidden'); 
       };
 
