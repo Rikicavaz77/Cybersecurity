@@ -17,6 +17,7 @@
   --fileContentBgColor: #000;
   --font-file-content-family: monospace;
   --copyToClipboardBtnBgColor: #fff;
+  --copyToClipboardIconColor: #000;
   --goToTopBgColor: #fff;
   --goToTopTxtColor: #000; 
 }
@@ -248,6 +249,7 @@ section a:hover {
 
 .file-content #copy-to-clipboard i {
   font-size: 1.4em;
+  color: var(--copyToClipboardIconColor);
   padding: 0.5em;
 }
 
