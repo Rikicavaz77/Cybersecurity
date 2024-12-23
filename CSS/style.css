@@ -16,6 +16,7 @@
   --sectionBgColor: #000;
   --fileContentBgColor: #000;
   --font-file-content-family: monospace;
+  --copyToClipboardBtnBgColor: #fff;
   --goToTopBgColor: #fff;
   --goToTopTxtColor: #000; 
 }
@@ -52,6 +53,7 @@ abbr[title] {
 }
 
 header {
+  z-index: 100;
   background-color: var(--hBgColor);
   color: var(--hTextColor);
   position: fixed;
@@ -211,6 +213,8 @@ section a:hover {
 }
 
 .file-content {
+  position: relative;
+  z-index: 2;
   font-family: var(--font-file-content-family);
   background-color: var(--fileContentBgColor);
   padding: 0.625em;
@@ -227,6 +231,22 @@ section a:hover {
 
 .file-content.hidden {
   visibility: hidden;
+}
+
+.file-content #copy-to-clipboard {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background-color: var(--copyToClipboardBtnBgColor);
+  border-radius: 10px;
+  border: none;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.file-content #copy-to-clipboard i {
+  font-size: 1.4em;
+  padding: 0.5em;
 }
 
 #credits {

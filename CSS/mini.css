@@ -2,10 +2,6 @@ h2 {
   font-size: 1.3em;
 }
 
-header {
-  z-index: 100;
-}
-
 #menu {
   display: none;
   background-color: var(--hBgColor);

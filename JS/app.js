@@ -69,7 +69,7 @@ async function generateFileList(folderUrl) {
       fileLink.onclick = async function () {
         const fileContent = await getFileContent(file.download_url);
         const fileContentBox = document.getElementById('file-content');
-        fileContentBox.textContent = fileContent;
+        fileContentBox.prepend(fileContent);
         fileContentBox.classList.remove('hidden'); 
       };
 
@@ -115,3 +115,21 @@ async function loadFolders() {
 }
 
 loadFolders();
+
+function toggleCopyIcon() {
+  document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-copy');
+  document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-check');
+}
+
+document.getElementById('copy-to-clipboard').addEventListener('click', () => {
+  const fileContent = document.getElementById('file-content').textContent;
+  toggleCopyIcon();
+  navigator.clipboard.writeText(fileContent.trim()).then(() => {
+    setTimeout(() => {
+      toggleCopyIcon();
+    }, 1000);
+  }).catch(err => {
+    console.error('Errore durante la copia: ', err);
+    toggleCopyIcon();
+  });
+});
