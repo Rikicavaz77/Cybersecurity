@@ -1,0 +1,18 @@
+1) The binary has been compiled with PIE (Position Independent Executable), meaning that the sections are mapped to a randomized address each time the program is executed.
+2) A memory leak is required in order to perform the exploit.
+3) I have access to the source code and know that the program returns a leak, specifically the address of the main function.
+4) I subtract the static address of the main function from the leaked main address to get the base address.
+
+base_address = main_leak - main_address
+
+5) Now I can calculate the necessary addresses to complete the write-what-where challenge.
+6) After completing the first iteration of the while loop and performing the overwrite, the first function that gets executed is read.
+7) Therefore, I can overwrite the entry in the GOT related to the read function.
+
+where_addr = elf.got["read"] + base_address
+
+8) I replace the address of the read function with the address of the oh_look_useful function.
+
+what_addr = elf.symbols["oh_look_useful"] + base_address
+
+9) I send the two payloads and the shell is spawned.

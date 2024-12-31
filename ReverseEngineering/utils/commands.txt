@@ -19,3 +19,19 @@ readelf -s ./write4
 
 strings ./honeydex
 strings ./honeydex | grep "TIP"
+
+readelf -a ./auth
+readelf -h ./auth
+
+# Se esiste una sezione GNU_RELRO, è presente una protezione RELRO (parziale o completa).
+readelf -l ./auth | grep GNU_RELRO
+# Puoi verificare se è full o partial controllando se la tabella GOT è protetta. 
+# Se esiste l'attributo BIND_NOW, è Full RELRO.
+readelf -d ./auth | grep BIND_NOW
+
+# Se c'è RWE, lo stack è eseguibile.
+# Se c'è solo RW, lo stack non è eseguibile.
+readelf -W -l ./authy | grep STACK
+
+# Eseguire un'analisi sulla sicurezza di un file binario
+checksec --file=auth

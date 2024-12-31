@@ -1,0 +1,18 @@
+1) Il binario è stato compilato con PIE (Position Independent Executable), il che significa che le sezioni vengono mappate a un indirizzo randomizzato ogni volta che il programma viene eseguito.
+2) È necessario ottenere un leak di memoria per effettuare l'exploit.
+3) Ho a disposizione il file sorgente e noto che il programma restituisce un leak, ossia l'indirizzo della funzione main.
+4) Effettuo una sottrazione tra questo indirizzo e l'indirizzo della funzione main nel file binario, in modo tale da ottenere il base address.
+
+base_address = main_leak - main_address
+
+5) Ora posso calcolare gli indirizzi necessari per completare la challenge write-what-where.
+6) Dopo aver completato la prima iterazione del ciclo while e aver effettuato la sovrascrittura, la prima funzione che viene eseguita è read.
+7) Pertanto, posso sovrascrivere la entry della GOT relativa alla funzione read.
+
+where_addr = elf.got["read"] + base_address
+
+8) Sostituisco l'indirizzo della funzione read con l'indirizzo della funzione oh_look_useful.
+
+what_addr = elf.symbols["oh_look_useful"] + base_address
+
+9) Invio i due payload e la shell viene generata.
