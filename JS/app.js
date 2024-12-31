@@ -117,7 +117,9 @@ async function loadFolders() {
 loadFolders();
 
 function toggleCopyIcon() {
+  document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-regular');
   document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-copy');
+  document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-solid');
   document.getElementById('copy-to-clipboard').querySelector('i').classList.toggle('fa-check');
 }
 

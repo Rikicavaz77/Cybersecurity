@@ -16,8 +16,8 @@
   --sectionBgColor: #000;
   --fileContentBgColor: #000;
   --font-file-content-family: monospace;
-  --copyToClipboardBtnBgColor: #fff;
-  --copyToClipboardIconColor: #000;
+  --copyToClipboardBtnBgColor: transparent;
+  --copyToClipboardIconColor: #fff;
   --goToTopBgColor: #fff;
   --goToTopTxtColor: #000; 
 }
@@ -243,7 +243,7 @@ section a:hover {
   right: 0.5em;
   background-color: var(--copyToClipboardBtnBgColor);
   border-radius: 10px;
-  border: none;
+  border: 1px solid #fff;
   cursor: pointer;
 }
 
