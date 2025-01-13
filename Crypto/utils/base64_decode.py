@@ -3,7 +3,7 @@ import base64
 def base64_decode(text):
     return base64.b64decode(text).decode('utf-8', errors='ignore')
 
-cipher_text = "c3ByaXR6e3MxbXBsM19iYXNlNjRfM25jMGQxbmd9"
+cipher_text = "Q1RGe0ZsYWdneVdhZ2d5UmFnZ3l9"
 print(cipher_text)
 
 w = len(cipher_text)

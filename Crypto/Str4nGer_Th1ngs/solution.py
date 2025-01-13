@@ -20,7 +20,7 @@ def morse_decode(text):
   return ''.join(morse_code_dict.get(c, c) for c in text.split())
 
 def base64_decode(text):
-  return base64.b64decode(text).decode('ascii', errors='ignore')
+  return base64.b64decode(text).decode('utf-8', errors='ignore')
 
 def hex_to_string(text):
   return ''.join(chr(int(text[i * 2 : (i + 1) * 2], 16)) for i in range(len(text) // 2))
@@ -68,6 +68,8 @@ with open('cyphertext.txt', 'r') as file:
   print(encrypted_flag)
   encrypted_flag = findall(r"\d+|[ {’}]", encrypted_flag)
   alphabet = list(string.ascii_lowercase)
+  #decryption_dict = { str(alphabet.index(c) + 1): c for c in alphabet }
+  #flag = ''.join(decryption_dict.get(c, c) for c in encrypted_flag)
   flag = ''.join(alphabet[int(c) - 1] if c.isdigit() else c for c in encrypted_flag)
   print(f"Flag: {flag}", end='\n\n')
 

