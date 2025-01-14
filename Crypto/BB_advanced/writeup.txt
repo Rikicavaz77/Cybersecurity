@@ -1,0 +1,10 @@
+1. The mixer function performs an XOR between each character of the plaintext message and a pseudo-random number generated in each iteration.
+2. To obtain the same sequence used during encryption, I need to recover the seed.
+3. The function np.random.randn generates a random number using a standard normal distribution.
+4. Generally, the output is between -3 and 3.
+5. np.abs makes the output always positive, so I can consider the range 0-3.
+6. The generated number is multiplied by 1000. Since the conversion to int happens only at the end, I need to consider all numbers within the range 0-3000.
+7. There is a 0.26% probability that the random number falls outside the range 0-3. Therefore, I can attempt a brute-force attack within the range 0-3500, leveraging the information available about the flag format.
+8. The key 107 returns the correct flag.
+
+Flag: spritzCTF{blusky}

@@ -1,0 +1,12 @@
+1) This is a write-what-where, where the program asks for two 4-byte inputs in hexadecimal format.
+2) The flag is printed in the print_flag function, but this function is never called in the main.
+3) I can overwrite an entry in the GOT (Global Offset Table) to redirect execution to the print_flag function, as the binary uses partial RELRO.
+4) The first input should be the address of the entry to overwrite.
+5) The second input should be the address of the print_flag function.
+6) On an x86-64 architecture, entries in the GOT are 8 bytes (64 bits).
+7) Since the program allows 4 bytes to be inserted at a time, I cannot overwrite the entry for the puts function, since it has already been resolved before the overwrite.
+8) The actual address of the puts function (e.g. puts@libc) is loaded dynamically, updating the GOT entry with an 8-byte address. Therefore, overwriting 4 bytes may result in a "corrupt" address, causing a segmentation fault.
+9) I can overwrite the entry for the exit function, which has not been resolved at the time of the overwrite.
+10) I wrote a Python script to automate these operations and retrieve the flag.
+
+Flag: spritz{c4pr4_c4pr4_c4pr4!!}

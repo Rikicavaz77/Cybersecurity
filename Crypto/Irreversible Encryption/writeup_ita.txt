@@ -1,0 +1,17 @@
+1. Noto che il testo cifrato è stato codificato in esadecimale.
+2. Questo corrisponde all'ultima operazione effettuata dall'algoritmo, ossia una codifica da ascii a esadecimale.
+3. Noto poi una serie di operazioni eseguite in sequenza per rendere più complesso risalire al messaggio originale.
+4. Per risalire al messaggio in chiaro, devo invertire ciascuna operazione ed eseguire la sequenza al contrario.
+
+Implemento l'algoritmo per invertire le operazioni:
+1. Decodifico il testo cifrato, convertendolo da esadecimale ad ascii.
+2. La funzione XORencode può essere utilizzata senza modifiche, impostando come primo parametro il testo cifrato. Poiché la chiave è visibile, la XOR tra il messaggio cifrato e la chiave restituisce il messaggio originale.
+3. Eseguo lo stesso ciclo 15 volte, invertendo la sequenza di operazioni.
+4. ROTencode è un rotation cipher, di cui conosco lo shift. Pertanto posso risalire al messaggio originale sottraendo lo shift a ciascun carattere del testo cifrato.
+5. Mantengo la funzione ROTencode, impostando come pos il valore di partenza moltiplicato per -1.
+6. Effettuo una decodifica da base32 ad ascii.
+7. Eseguo nuovamente ROTencode con pos uguale a -13.
+8. Effettuo una decodifica da base64 ad ascii.
+9. Dopo aver eseguito 15 iterazioni, ottengo la flag.
+
+Encode as if there's no tomorrow: spritz{encoding_is_not_encryption}

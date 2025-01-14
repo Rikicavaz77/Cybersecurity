@@ -1,0 +1,4 @@
+First input: zaz
+Second input: SPPRIITZ
+
+Flag: SPRITZCTF={webgame2020_03}

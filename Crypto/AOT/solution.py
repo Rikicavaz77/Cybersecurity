@@ -14,7 +14,6 @@ def mixer(message, x1, x2, x3):
 
 with open("message.txt", "rb") as file:
   cipher = file.read().decode('utf-8', errors='ignore')
-  file.close()
   print(f"Cipher text:\n{cipher}")
 
   for i in range(1, 128):

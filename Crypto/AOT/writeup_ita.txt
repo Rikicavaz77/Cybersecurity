@@ -1,0 +1,14 @@
+Noto che il testo cifrato contiene dei dati che sembrano casuali, quindi è probabile che sia stato codificato utilizzando un XOR con una chiave ripetuta.
+Analizzando il codice, osservo che viene eseguito un XOR tra ogni carattere del testo in chiaro e una variabile x1.
+La variabile x1 è un numero che deve essere diverso da x2, x3 e dalla somma di x2 e x3.
+Inoltre, il modulo di x1 con 731 deve essere uguale al modulo di x1 + x2 con 731.
+L'obiettivo è identificare il valore di x1 utilizzato per la codifica.
+I valori di x1 e x2 non sono critici per la decodifica, ma sono necessari per soddisfare i vincoli.
+So che x1 > 0, poiché eseguire un XOR di un carattere con 0 restituisce lo stesso carattere.
+Pertanto, imposto x2 = 0, garantendo che sia sempre diverso da x1. Con questa scelta, le condizioni x1 != (x2 + x3) e f(x1) == f(x2 + x3) si semplificano in x1 != x3 e f(x1) == f(x3).
+Analizzando i caratteri nel testo cifrato e facendo ipotesi sul testo in chiaro, posso dedurre che per l’operazione di XOR è stato utilizzato un numero compreso tra 1 e 127 (tabella ASCII). Questa assunzione riduce lo spazio di ricerca per un attacco di brute-force.
+Imposto x3 = x1 + 731. Questo garantisce che il modulo con 731 sia lo stesso per entrambi.
+Per ottimizzare la ricerca, sfrutto il fatto che una parte del testo in chiaro è nota, poiché conosco il formato della flag.
+Se durante un'iterazione il testo risultante contiene la stringa "spritzCTF{", allora ho trovato il messaggio originale e posso terminare l'algoritmo.
+Con x1 uguale a 70, ottengo la flag.
+Flag: spritzCTF{sasageyo}

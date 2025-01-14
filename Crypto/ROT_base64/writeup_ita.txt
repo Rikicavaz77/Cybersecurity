@@ -1,0 +1,8 @@
+Eseguo l'operazione di cifratura al contrario.
+
+Per prima cosa, implemento un algoritmo per il cifrario a rotazione.
+Il codice fornito include due variabili, ALPHABET e LEN, che mi forniscono informazioni sull'alfabeto utilizzato durante la cifratura e sulla sua lunghezza.
+Per effettuare lo spostamento, devo trovare l'indice di ciascun carattere all'interno di ALPHABET. Sottraggo il valore dello spostamento da questo indice. Il risultato viene quindi preso modulo LEN per garantire che la rotazione si avvolga correttamente.
+Il testo risultante è in formato Base64, poiché la sua lunghezza è un multiplo di 4.
+Decodifico il testo da Base64 e recupero il flag.
+Flag: spritz{another_useless_encryption}

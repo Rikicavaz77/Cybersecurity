@@ -1,0 +1,17 @@
+1. I notice that the encrypted text has been encoded in hexadecimal.
+2. This corresponds to the last operation performed by the algorithm, which is an encoding from ASCII to hexadecimal.
+3. Then, I observe a series of operations executed in sequence to make it more difficult to trace back to the original message.
+4. To recover the plaintext message, I need to reverse each operation and execute the sequence in reverse order.
+
+I implement the algorithm to reverse the operations:
+1. I decode the encrypted text, converting it from hexadecimal to ASCII.
+2. The function XORencode can be used without modifications, setting the encrypted text as the first parameter. Since the key is visible, performing XOR between the encrypted message and the key retrieves the original message.
+3. I repeat the same process 15 times, reversing the sequence of operations.
+4. ROTencode is a rotation cipher for which I know the shift. Therefore, I can recover the original message by subtracting the shift from each character in the encrypted text.
+5. I keep the ROTencode function, setting the pos parameter to the starting value multiplied by -1.
+6. I perform a decoding from Base32 to ASCII.
+7. I run ROTencode again with pos set to -13.
+8. I perform a decoding from Base64 to ASCII.
+9. After completing 15 iterations, I obtain the flag.
+
+Encode as if there's no tomorrow: spritz{encoding_is_not_encryption}

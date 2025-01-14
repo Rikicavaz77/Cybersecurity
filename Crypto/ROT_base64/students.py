@@ -15,7 +15,6 @@ def base64_to_string(text):
 
 with open('encrypted_flag.txt', 'r') as f:
     encrypted_message=f.read()
-    f.close()
     print(f"Cipher text:\n{encrypted_message}", end='\n\n')
 
     first_step = decrypt_rotation_cipher(encrypted_message, 13)

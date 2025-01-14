@@ -1,0 +1,12 @@
+1) Si tratta di un write-what-where, in cui il programma richiede due input di 4 byte ciascuno in formato esadecimale.
+2) La flag viene stampata nella funzione print_flag, ma questa funzione non viene mai chiamata nel main.
+3) Posso sovrascrivere un'entry nella GOT (Global Offset Table) per reindirizzare l'esecuzione alla funzione print_flag, in quanto il binario utilizza RELRO parziale.
+4) Il primo input deve essere l'indirizzo dell'entry da sovrascrivere.
+5) Il secondo input deve essere l'indirizzo della funzione print_flag.
+6) Su un'architettura x86-64, le voci nella GOT sono a 8 byte (64 bit). 
+7) Poiché il programma consente di inserire 4 byte alla volta, non posso sovrascrivere la entry relativa alla funzione puts, in quanto è già stata risolta precedentemente alla sovrascrittura.
+8) L'indirizzo effettivo della funzione puts (ad esempio puts@libc) viene caricato dinamicamente, aggiornando la entry della GOT con con un indirizzo a 8 byte. Pertanto, la sovrascrittura di 4 byte può portare a un indirizzo "corrotto", causando un errore di segmentazione.
+9) Posso sovrascrivere la entry relativa alla funzione exit, che non è ancora stata risolta al momento della sovrascrittura.
+10) Scrivo uno script Python per automatizzare queste operazioni e ottengo la flag.
+
+Flag: spritz{c4pr4_c4pr4_c4pr4!!}

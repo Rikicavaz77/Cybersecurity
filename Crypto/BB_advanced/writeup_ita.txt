@@ -1,0 +1,10 @@
+1. La funzione mixer effettua una XOR tra ciascun carattere del messaggio in chiaro e un numero pseudo-casuale generato ad ogni iterazione.
+2. Per ottenere la stessa sequenza utilizzata in fase di cifratura, devo recuperare il seed.
+3. La funzione np.random.randn genera un numero casuale utilizzando una distribuzione normale standard. 
+4. Generalmente l'output è compreso tra -3 e 3. 
+5. nb.abs rende l'output sempre positivo, quindi posso considerare il range 0-3. 
+6. Il numero generato viene moltiplicato per 1000. Dato che la conversione in int viene effettuata soltanto alla fine, devo considerare tutti i numeri compresi nell'intervallo 0-3000.
+7. C'è una probabilità dello 0.26% che il numero random esca dal range 0-3. Quindi posso provare un attacco brute-force all'interno del range 0-3500, sfruttando le informazioni a disposizione sul formato della flag.
+8. La chiave 107 restituisce la flag corretta.
+
+Flag: spritzCTF{blusky}
