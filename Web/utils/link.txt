@@ -1,0 +1,11 @@
+https://10015.io/tools/md5-encrypt-decrypt
+https://www.geeksforgeeks.org/vulnerability-in-str-format-in-python/
+https://www.php.net/manual/en/language.types.type-juggling.php
+https://medium.com/swlh/php-type-juggling-vulnerabilities-3e28c4ed5c09
+https://medium.com/swlh/hacking-python-applications-5d4cd541b3f1
+https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/
+https://crackstation.net/
+https://www.base64encode.org/
+https://www.urlencoder.org/
+https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/
+https://md5decrypt.net/en/Xor/
