@@ -1,0 +1,7 @@
+1. I attempt to log in using arbitrary credentials, "admin" and "admin".
+2. The content of the page changes, and a message appears prompting me to try again.
+3. Inspecting the webpage and analyzing the cookies in the Application section, I notice a permission field with the value "user".
+4. My goal is to access the page as an admin, so I attempt to change the value of the cookie to "admin".
+5. I reload the page and successfully obtain the flag.
+
+spritz{SweetVictory123}

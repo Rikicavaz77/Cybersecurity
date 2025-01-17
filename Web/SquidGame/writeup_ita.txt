@@ -1,0 +1,7 @@
+1. Provo a inserire due credenziali qualsiasi, "admin" e "admin".
+2. Il contenuto della pagina cambia e viene mostrato un avviso che mi invita a riprovare.
+3. Ispezionando la pagina web e analizzando i cookie nella sezione Applicazione, noto che è presente un campo permission con valore "user".
+4. Il mio obiettivo è accedere alla pagina come admin, quindi provo a cambiare il valore del cookie in "admin".
+5. Ricarico la pagina e ottengo la flag.
+
+spritz{SweetVictory123}
