@@ -1,0 +1,22 @@
+Ispezionando la pagina, noto che il titolo è "Sanremo injection", quindi ipotizzo che questa sfida riguardi un attacco di SQL injection.
+Provo a inserire delle credenziali per generare un errore e identificare il DBMS sottostante.
+Inserisco come username 1 e come password tre apici singoli (''').
+Dalla pagina di errore, determino che il DBMS in uso è sqlite3.
+In sqlite3, i commenti sono solitamente delimitati da -- o /* */.
+Procedo a inserire nuove credenziali.
+Per lo username, utilizzo la seguente stringa:
+admin' OR 1=1/*
+Ipotizzo che la query SQL sia strutturata così:
+SELECT * FROM users WHERE username='' AND password='';
+Una volta iniettata la mia stringa, l'applicazione verificherà se lo username è uguale a "admin" oppure se 1=1 (una condizione sempre vera). Il resto della query sarà ignorato poiché trattato come commento.
+Imposto la password a 1.
+Recupero la flag.
+Flag: spritz{Bl4nc0_m4dness}
+
+Passaggi aggiuntivi:
+Ho anche scritto due script Python per estrarre lo username e la password corretti.
+Il primo script esegue un attacco brute-force per determinare la lunghezza dello username. Conoscendo la lunghezza della stringa e sfruttando la funzione SUBSTR, riesco a ricostruire lo username un carattere alla volta.
+Il secondo script esegue un attacco brute-force per indovinare la password associata allo username trovato in precedenza.
+Lo script verifica carattere per carattere basandosi sui valori ASCII.
+Il confronto numerico consente l'implementazione di un algoritmo di ricerca binaria, riducendo la complessità computazionale.
+Con lo username e la password recuperati, effettuo correttamente il login.
