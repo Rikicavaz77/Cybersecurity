@@ -1,0 +1,48 @@
+1. The program requires a string as input, which is then decrypted using the Caesar cipher.
+2. It is then compared with another string.
+3. First, I search for the string it is compared with.
+4. I start GDB.
+5. I disassemble the main function and notice that the addresses are not resolved:
+
+0x0000000000000aa0
+
+6. I set a breakpoint on the main function and execute the program:
+
+0x0000555555400aa0
+
+7. Now that the addresses are fully resolved, I set a breakpoint on the following instruction:
+
+call    _strcmp
+
+8. I input the character 'a'.
+9. I check the contents of the rsi register (the second parameter of the function call):
+
+x $rsi
+
+10. The string it is compared with is "passwd".
+11. Now, I need to determine the shift used by the algorithm.
+
+x $rdi
+
+12. I had entered the character 'a' as input, and I notice that the first parameter of the function call is '^'.
+13. In the ASCII table, the characters 'a' and '^' have the following codes:
+
+'a' -> 97
+'^' -> 94
+
+14. The shift used by the algorithm is 97 - 94 = 3.
+15. I write a Python script to construct the payload, which contains the string "passwd" encrypted with shift = 3:
+
+def caesar_cipher_encoder(cipher_text, shift):
+  result = ''
+  for c in cipher_text:
+    if c.isalpha():
+      offset = 65 if c.isupper() else 97
+      result += chr((ord(c) - offset + shift) % 26 + offset)
+    else:
+      result += c
+  return result
+
+16. I send the payload and obtain the flag.
+
+Flag: spritz{diFferNt_opeRAt1ions_SaMe_passwd}

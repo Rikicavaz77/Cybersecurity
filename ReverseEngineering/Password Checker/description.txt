@@ -1,0 +1,5 @@
+Here is your password checker, please enter the password!
+
+You CANNOT patch this file!
+Pure reversing is the way.
+Please don't read the flag directly from the binary, we will not accept it as a solution.

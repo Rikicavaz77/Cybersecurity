@@ -1,0 +1,44 @@
+1. Utilizzo Hex-Rays per decompilare il binario.
+
+  char v4[79];
+  char s1[8];
+  char v6[8];
+  char v7;
+
+  v7 = 78;
+  setvbuf(_bss_start, 0LL, 2, 0LL);
+  puts("Do you want the flag?");
+  gets(v4);
+  if ( v7 != 89 )
+  {
+    puts("You didn't want it bad enough!\nBye!");
+    exit(0);
+  }
+  if ( memcmp(s1, "DEADBEEF", 8uLL) )
+  {
+    puts("You didn't want it bad enough!\nBye!");
+    exit(0);
+  }
+  if ( !memcmp(v6, "CAFEBABE", 8uLL) )
+  {
+    puts("Nice, you want it!");
+    print_flag();
+    putchar(10);
+  }
+
+2. La stringa inserita come input viene memorizzata in v4.
+3. Il primo confronto viene fatto con la variabile v7, che inizialmente contiene il valore 'N'.
+4. Devo sostituire questo valore con 'Y'.
+5. La variabile s1 deve contenere la stringa "DEADBEEF".
+6. La variabile v6 deve contenere la stringa "CAFEBABE".
+7. Posso effettuare un buffer overflow.
+8. Inserisco 79 caratteri 'A' per riempire il buffer.
+9. Successivamente, inserisco una sequenza di 17 caratteri:
+
+s1[8] -> "DEADBEEF"
+v6[8] -> "CAFEBABE"
+v7    -> 'Y'
+
+10. Scrivo uno script Python per automatizzare queste operazioni e ottengo la flag.
+
+Flag: spritz{b0f_ch4ng3S_v4riabl3s_xdxd}

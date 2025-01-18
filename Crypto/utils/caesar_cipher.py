@@ -1,4 +1,4 @@
-def ceaser_cipher_encoder(plain_text, shift):
+def caesar_cipher_encoder(plain_text, shift):
     result = ''
     for c in plain_text:
         if c.isalpha():     # check if the character is a letter
@@ -9,7 +9,7 @@ def ceaser_cipher_encoder(plain_text, shift):
             result += c
     return result
 
-def ceaser_cipher_decoder(cipher_text, shift):
+def caesar_cipher_decoder(cipher_text, shift):
     result = ''
     for c in cipher_text:
         if c.isalpha():     # check if the character is a letter
@@ -23,5 +23,5 @@ def ceaser_cipher_decoder(cipher_text, shift):
 input = "QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD"
 
 for i in range(1, 26):
-    decoded = ceaser_cipher_decoder(input, i)
+    decoded = caesar_cipher_decoder(input, i)
     print(f"Step={i}\t{decoded}")

@@ -1,0 +1,4 @@
+Can you get the flag?
+
+You CANNOT patch this file and you cannot get the flag directly from the 
+file flag.txt

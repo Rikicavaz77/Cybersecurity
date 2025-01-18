@@ -1,0 +1,48 @@
+1. Il programma richiede l'inserimento di una stringa come input, che viene decifrata utilizzando il cifrario di Cesare.
+2. Viene poi fatto un confronto con un'altra stringa.
+3. Come prima cosa, cerco la stringa con cui viene effettuato il confronto.
+4. Avvio il gdb.
+5. Disassemblo il main e noto che gli indirizzi non sono risolti.
+
+0x0000000000000aa0
+
+6. Inserisco un breakpoint sul main ed eseguo il programma.
+
+0x0000555555400aa0
+
+7. Ora che gli indirizzi sono completamente risolti, inserisco un breakpoint sulla seguente istruzione:
+
+call    _strcmp
+
+8. Inserisco come input il carattere 'a'.
+9. Controllo il contenuto del registro rsi (secondo parametro della chiamata alla funzione).
+
+x $rsi
+
+10. La stringa con cui viene effettuato il confronto è "passwd".
+11. Ora devo individuare lo shift utilizzato dall'algoritmo di decifratura.
+
+x $rdi
+
+12. Avevo inserito come input il carattere 'a' e noto che il primo parametro della chiamata alla funzione è '^'.
+13. Nella tabella ASCII, i caratteri 'a' e '^' hanno i seguenti codici:
+
+'a' -> 97
+'^' -> 94
+
+14. Lo shift utilizzato dall'algoritmo è 97 - 94 = 3.
+15. Scrivo uno script Python per costruire il payload, che conterrà la stringa "passwd" cifrata con shift = 3.
+
+def caesar_cipher_encoder(cipher_text, shift):
+  result = ''
+  for c in cipher_text:
+    if c.isalpha():
+      offset = 65 if c.isupper() else 97
+      result += chr((ord(c) - offset + shift) % 26 + offset)
+    else:
+      result += c
+  return result
+
+16. Invio il payload e ottengo la flag.
+
+Flag: spritz{diFferNt_opeRAt1ions_SaMe_passwd}
